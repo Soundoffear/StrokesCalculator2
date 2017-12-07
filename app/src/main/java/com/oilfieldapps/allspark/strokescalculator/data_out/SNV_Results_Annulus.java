@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.oilfieldapps.allspark.strokescalculator.R;
-import com.oilfieldapps.allspark.strokescalculator.SandV_Free;
 import com.oilfieldapps.allspark.strokescalculator.SandV_Free_results;
+import com.oilfieldapps.allspark.strokescalculator.calculators.SNV_Calculator;
 import com.oilfieldapps.allspark.strokescalculator.converters.Converter;
 import com.oilfieldapps.allspark.strokescalculator.custom_adapters.Annulus_results_adapter;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_Data;
@@ -24,6 +24,7 @@ import com.oilfieldapps.allspark.strokescalculator.data_and_databases.HoleData_D
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by Allspark on 07/09/2017.
@@ -45,8 +46,6 @@ public class SNV_Results_Annulus extends Fragment {
     private Annulus_results_adapter annulus_results_adapter;
     private List<Annulus_Results> annulusResultsList;
 
-    private Converter converter;
-
     private String volumeUnits;
     private String pumpOutputUnits;
 
@@ -54,20 +53,27 @@ public class SNV_Results_Annulus extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.s_and_v_data_out_annular, null);
 
-        converter = new Converter();
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         volumeUnits = sharedPreferences.getString("SNV_VOLUME_UNITS", getResources().getString(R.string.bbl));
         pumpOutputUnits = sharedPreferences.getString("SNV_PUMP_OUTPUT", getResources().getString(R.string.bbl_stk));
 
         pumpOutput = Double.parseDouble(SandV_Free_results.pump_output);
-        pumpOutput = converter.outputConverter(pumpOutputUnits, getResources().getString(R.string.bbl_stk), pumpOutput);
+        pumpOutput = Converter.outputConverter(pumpOutputUnits, getResources().getString(R.string.bbl_stk), pumpOutput);
+
         annulus_dataBase = new Annulus_DataBase(getContext());
         holeData_dataBase = new HoleData_DataBase(getContext());
-        output_listView_drillString = (ListView) view.findViewById(R.id.list_view_annulus_results);
+        output_listView_drillString = view.findViewById(R.id.list_view_annulus_results);
         annulusResults_dataBase = new Annulus_Results_DataBase(getContext());
         annulusResults_dataBase.delateDatabase();
-        CalculateAllData();
+
+        SNV_Calculator.CalculateAnnularData(
+                getContext(),
+                annulus_dataBase,
+                holeData_dataBase,
+                pumpOutput,
+                annulusResults_dataBase
+        );
+
         annulusResultsList = annulusResults_dataBase.getAllItem();
         annulus_results_adapter = new Annulus_results_adapter(getContext(), annulusResultsList);
         output_listView_drillString.setAdapter(annulus_results_adapter);
@@ -75,19 +81,18 @@ public class SNV_Results_Annulus extends Fragment {
         return view;
     }
 
-    private double startingData = 0;
-    private double closingData = 0;
-    private double tempCalculatedLength = 0;
-    private double volumePerStage = 0;
-    private double strokesPerStage = 0;
-    private double totalStrokes = 0;
-    private double totalVolume = 0;
-    private String DS_partName; // to be used later for displaying details
 
-    public void CalculateAllData() {
 
-        totalStrokes = 0;
-        totalVolume = 0;
+    /*public void CalculateAllData() {
+
+        double startingData = 0;
+        double tempCalculatedLength = 0;
+        double volumePerStage = 0;
+        double strokesPerStage = 0;
+        String DS_partName; // to be used later for displaying details
+
+        double totalStrokes = 0;
+        double totalVolume = 0;
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         String volumeUnits = sharedPreferences.getString("SNV_VOLUME_UNITS", getResources().getString(R.string.bbl));
@@ -106,7 +111,7 @@ public class SNV_Results_Annulus extends Fragment {
         // Annular volume calculator
 
         for (int i = 0; i < holeDataList.size(); i++) {
-            closingData = Double.parseDouble(holeDataList.get(i).getInput_end_md());
+            double closingData = Double.parseDouble(holeDataList.get(i).getInput_end_md());
             String length_unit = holeDataList.get(i).getInput_length_unit();
             String diameter_unit = holeDataList.get(i).getInput_diameter_unit();
             Log.d("<Start, End>", "<" + startingData + "," + closingData + ">");
@@ -120,7 +125,7 @@ public class SNV_Results_Annulus extends Fragment {
                                 double od = Double.parseDouble(annulusDataList.get(j).getString_od());
                                 double id = Double.parseDouble(holeDataList.get(i).getInput_id());
                                 double calculatedVolume = CalculateVolume(tempCalculatedLength, id, od, diameter_unit, length_unit);
-                                double tempVolForStrokes = converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
+                                double tempVolForStrokes = Converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
                                 double calculatedStrokes = tempVolForStrokes / pumpOutput;
                                 volumePerStage = volumePerStage + calculatedVolume;
                                 strokesPerStage = strokesPerStage + calculatedStrokes;
@@ -132,7 +137,7 @@ public class SNV_Results_Annulus extends Fragment {
                                     double od = Double.parseDouble(annulusDataList.get(j).getString_od());
                                     double id = Double.parseDouble(holeDataList.get(i).getInput_id());
                                     double calculatedVolume = CalculateVolume(tempCalculatedLength, id, od, diameter_unit, length_unit);
-                                    double tempVolForStrokes = converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
+                                    double tempVolForStrokes = Converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
                                     double calculatedStrokes = tempVolForStrokes / pumpOutput;
                                     volumePerStage = volumePerStage + calculatedVolume;
                                     strokesPerStage = strokesPerStage + calculatedStrokes;
@@ -145,7 +150,7 @@ public class SNV_Results_Annulus extends Fragment {
                             double od = Double.parseDouble(annulusDataList.get(j).getString_od());
                             double id = Double.parseDouble(holeDataList.get(i).getInput_id());
                             double calculatedVolume = CalculateVolume(tempCalculatedLength, id, od, diameter_unit, length_unit);
-                            double tempVolForStrokes = converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
+                            double tempVolForStrokes = Converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
                             double calculatedStrokes = tempVolForStrokes / pumpOutput;
                             volumePerStage = volumePerStage + calculatedVolume;
                             strokesPerStage = strokesPerStage + calculatedStrokes;
@@ -158,7 +163,7 @@ public class SNV_Results_Annulus extends Fragment {
                             double od = Double.parseDouble(annulusDataList.get(j).getString_od());
                             double id = Double.parseDouble(holeDataList.get(i).getInput_id());
                             double calculatedVolume = CalculateVolume(tempCalculatedLength, id, od, diameter_unit, length_unit);
-                            double tempVolForStrokes = converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
+                            double tempVolForStrokes = Converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
                             double calculatedStrokes = tempVolForStrokes / pumpOutput;
                             volumePerStage = volumePerStage + calculatedVolume;
                             strokesPerStage = strokesPerStage + calculatedStrokes;
@@ -170,7 +175,7 @@ public class SNV_Results_Annulus extends Fragment {
                                 double od = Double.parseDouble(annulusDataList.get(j).getString_od());
                                 double id = Double.parseDouble(holeDataList.get(i).getInput_id());
                                 double calculatedVolume = CalculateVolume(tempCalculatedLength, id, od, diameter_unit, length_unit);
-                                double tempVolForStrokes = converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
+                                double tempVolForStrokes = Converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
                                 double calculatedStrokes = tempVolForStrokes / pumpOutput;
                                 volumePerStage = volumePerStage + calculatedVolume;
                                 strokesPerStage = strokesPerStage + calculatedStrokes;
@@ -186,7 +191,7 @@ public class SNV_Results_Annulus extends Fragment {
                                 double od = Double.parseDouble(annulusDataList.get(j).getString_od());
                                 double id = Double.parseDouble(holeDataList.get(i).getInput_id());
                                 double calculatedVolume = CalculateVolume(tempCalculatedLength, id, od, diameter_unit, length_unit);
-                                double tempVolForStrokes = converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
+                                double tempVolForStrokes = Converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
                                 double calculatedStrokes = tempVolForStrokes / pumpOutput;
                                 volumePerStage = volumePerStage + calculatedVolume;
                                 strokesPerStage = strokesPerStage + calculatedStrokes;
@@ -203,7 +208,7 @@ public class SNV_Results_Annulus extends Fragment {
                                 double od = Double.parseDouble(annulusDataList.get(j).getString_od());
                                 double id = Double.parseDouble(holeDataList.get(i).getInput_id());
                                 double calculatedVolume = CalculateVolume(tempCalculatedLength, id, od, diameter_unit, length_unit);
-                                double tempVolForStrokes = converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
+                                double tempVolForStrokes = Converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
                                 double calculatedStrokes = tempVolForStrokes / pumpOutput;
                                 volumePerStage = volumePerStage + calculatedVolume;
                                 strokesPerStage = strokesPerStage + calculatedStrokes;
@@ -223,7 +228,7 @@ public class SNV_Results_Annulus extends Fragment {
                         double od = Double.parseDouble(annulusDataList.get(j).getString_od());
                         double id = Double.parseDouble(holeDataList.get(i).getInput_id());
                         double calculatedVolume = CalculateVolume(tempCalculatedLength, id, od, diameter_unit, length_unit);
-                        double tempVolForStrokes = converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
+                        double tempVolForStrokes = Converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
                         double calculatedStrokes = tempVolForStrokes / pumpOutput;
                         volumePerStage = volumePerStage + calculatedVolume;
                         strokesPerStage = strokesPerStage + calculatedStrokes;
@@ -239,7 +244,7 @@ public class SNV_Results_Annulus extends Fragment {
                         double od = Double.parseDouble(annulusDataList.get(j).getString_od());
                         double id = Double.parseDouble(holeDataList.get(i).getInput_id());
                         double calculatedVolume = CalculateVolume(tempCalculatedLength, id, od, diameter_unit, length_unit);
-                        double tempVolForStrokes = converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
+                        double tempVolForStrokes = Converter.VolumeConverter(volumeUnits, getResources().getString(R.string.bbl), calculatedVolume);
                         double calculatedStrokes = tempVolForStrokes / pumpOutput;
                         volumePerStage = volumePerStage + calculatedVolume;
                         strokesPerStage = strokesPerStage + calculatedStrokes;
@@ -264,15 +269,14 @@ public class SNV_Results_Annulus extends Fragment {
         totalStrokes = roundUpToTwoDec(totalStrokes);
         annulusResults = new Annulus_Results(results_total_string, String.valueOf(totalVolume), String.valueOf(totalStrokes), volumeUnits);
         annulusResults_dataBase.inputData(annulusResults);
-        startingData = 0;
     }
 
     public double CalculateVolume(double length, double id, double od, String diameterUnit, String lengthUnit) {
-        id = converter.diameterConverter(diameterUnit, getResources().getString(R.string.in), id);
-        od = converter.diameterConverter(diameterUnit, getResources().getString(R.string.in), od);
-        length = converter.lengthConverter(lengthUnit, getResources().getString(R.string.feet), length);
+        id = Converter.diameterConverter(diameterUnit, getResources().getString(R.string.in), id);
+        od = Converter.diameterConverter(diameterUnit, getResources().getString(R.string.in), od);
+        length = Converter.lengthConverter(lengthUnit, getResources().getString(R.string.feet), length);
         double volume = ((Math.pow(id, 2) - Math.pow(od, 2)) / 1029.4) * length;
-        volume = converter.VolumeConverter("bbl", volumeUnits, volume);
+        volume = Converter.VolumeConverter("bbl", volumeUnits, volume);
         return volume;
     }
 
@@ -281,5 +285,5 @@ public class SNV_Results_Annulus extends Fragment {
         dataOut = Math.round(dataOut);
         dataOut = dataOut / 100;
         return dataOut;
-    }
+    } */
 }

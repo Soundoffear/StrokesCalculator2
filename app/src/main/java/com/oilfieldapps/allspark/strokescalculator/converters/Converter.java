@@ -14,7 +14,7 @@ public class Converter {
 
     }
 
-    public double diameterConverter (String oldUnit, String newUnit, double value) {
+    public static double diameterConverter (String oldUnit, String newUnit, double value) {
         switch (oldUnit) {
             case "in": switch (newUnit) {
                 case "mm":
@@ -45,7 +45,7 @@ public class Converter {
         }
     }
 
-    public double VolumeConverter(String oldVolumeUnit, String newVolumeUnit, double value) {
+    public static double VolumeConverter(String oldVolumeUnit, String newVolumeUnit, double value) {
         double finalVolValue;
         switch (oldVolumeUnit) {
             case "bbl":
@@ -174,7 +174,7 @@ public class Converter {
         }
     }
 
-    public double lengthConverter (String oldUnit, String newUnit, double value) {
+    public static double lengthConverter (String oldUnit, String newUnit, double value) {
         switch (oldUnit) {
             case "feet": switch (newUnit) {
                 case "m":
@@ -193,7 +193,7 @@ public class Converter {
         }
     }
 
-    public double outputConverter (String oldUnit, String newUnit, double value) {
+    public static double outputConverter (String oldUnit, String newUnit, double value) {
         switch (oldUnit) {
             case "bbl/stk":
                 switch (newUnit) {
@@ -244,7 +244,7 @@ public class Converter {
         }
     }
 
-    public double annularVelocityConverter(String oldUnit, String newUnit, double value) {
+    public static double annularVelocityConverter(String oldUnit, String newUnit, double value) {
 
         switch (oldUnit) {
             case "ft/min":

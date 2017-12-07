@@ -43,13 +43,13 @@ public class SandV_Free_results extends AppCompatActivity {
         Intent intent = getIntent();
         pump_output = intent.getStringExtra("STRING_PUMP_OUTPUT");
 
-        snv_results_viewPager = (ViewPager) findViewById(R.id.viewPager_resultScreen);
-        snv_results_tabLayout = (TabLayout) findViewById(R.id.tabLayout_resultScreen);
+        snv_results_viewPager = findViewById(R.id.viewPager_resultScreen);
+        snv_results_tabLayout = findViewById(R.id.tabLayout_resultScreen);
 
         snv_results_viewPager.setAdapter(new ResultsPageViewerAdapter(getSupportFragmentManager()));
         snv_results_tabLayout.setupWithViewPager(snv_results_viewPager);
 
-        snv_results_toolbar = (Toolbar) findViewById(R.id.snv_results_toolbar);
+        snv_results_toolbar = findViewById(R.id.snv_results_toolbar);
         setSupportActionBar(snv_results_toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
