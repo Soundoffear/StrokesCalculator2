@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/verti_cyl_tank"
+        android:contentDescription="@string/image_of_tank"/>
+
+    <GridLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:text="@string/h_height"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:padding="@dimen/paddingAround"/>
+
+        <TextView
+            android:text="@string/d_diameter"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:padding="@dimen/paddingAround" />
+
+        <TextView
+            android:text="@string/f_fluid_level"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:padding="@dimen/paddingAround" />
+
+    </GridLayout>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="25dp">
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="0"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/h_height"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <EditText
+                android:id="@+id/tank_vol_vc_length_input"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="0"
+                android:ems="6"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/paddingAround"
+                android:selectAllOnFocus="true"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_vc_length_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="0"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/in"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="1"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/d_diameter"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <EditText
+                android:id="@+id/tank_vol_vc_diameter_input"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="1"
+                android:ems="6"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/paddingAround"
+                android:selectAllOnFocus="true"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_vc_diameter_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="1"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/in"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="2"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/f_fluid_level"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <EditText
+                android:id="@+id/tank_vol_vc_fluid_level_input"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="2"
+                android:ems="6"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/paddingAround"
+                android:selectAllOnFocus="true"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_vc_fluid_level_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="2"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/in"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <LinearLayout
+                android:layout_column="0"
+                android:layout_columnSpan="3"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="3"
+                android:orientation="horizontal"
+                android:padding="@dimen/paddingAround">
+
+                <Button
+                    android:id="@+id/tank_volume_vc_calculate"
+                    style="?attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/calculate" />
+
+                <Button
+                    android:id="@+id/tank_volume_vc_clear"
+                    style="?attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="4"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/tank_total_volume"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_vc_total_volume_result"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="4"
+                android:ems="6"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_vc_total_volume_result_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="4"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/bbl"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="5"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/fluid_volume_in_tank"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_vc_fluid_volume_result"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="5"
+                android:ems="6"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_vc_fluid_volume_result_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="5"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/bbl"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+        </GridLayout>
+
+    </LinearLayout>
+
+</ScrollView>

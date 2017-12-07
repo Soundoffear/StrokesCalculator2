@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:summary="Defines all input data units"
+        android:title="Input Units">
+        <ListPreference
+            android:defaultValue="@string/in"
+            android:entries="@array/diameter_liner_entry"
+            android:entryValues="@array/diameter_liner_entry"
+            android:key="SNV_DIAMETER_UNITS"
+            android:summary="Defines diameter (ID and OD) units for drill string, casing and open hole"
+            android:title="Diameter Units" />
+
+        <ListPreference
+            android:defaultValue="@string/feet"
+            android:entries="@array/length_units_entry"
+            android:entryValues="@array/length_units_entry"
+            android:key="SNV_LENGTH_UNITS"
+            android:summary="Defines length units for drill string, casing and open hole"
+            android:title="Length Units" />
+
+        <ListPreference
+            android:defaultValue="@string/bbl_stk"
+            android:entries="@array/pump_output_entry"
+            android:entryValues="@array/pump_output_entry"
+            android:key="SNV_PUMP_OUTPUT"
+            android:summary="Defines length units for pump output"
+            android:title="Pump Output Units" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:summary="Defines all output data units"
+        android:title="Output Unit">
+        <ListPreference
+            android:defaultValue="@string/bbl"
+            android:entries="@array/volume_units_entry"
+            android:entryValues="@array/volume_units_entry"
+            android:key="SNV_VOLUME_UNITS"
+            android:summary="Defines volume units for drill string, casing and open hole"
+            android:title="Volume Units" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

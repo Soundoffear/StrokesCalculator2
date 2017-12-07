@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:padding="@dimen/paddingAround">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp">
+
+        <TextView
+            android:text="@string/name"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:padding="@dimen/paddingAround"/>
+
+        <EditText
+            android:id="@+id/drill_string_et_update_name"
+            android:textSize="@dimen/listViewTextSize"
+            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:layout_column="1"
+            android:ems="5"
+            android:layout_row="0"
+            android:inputType="text"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:text="@string/drill_string_id"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:padding="@dimen/paddingAround"/>
+
+        <EditText android:id="@+id/drill_string_et_update_ds_id"
+            android:textAlignment="center"
+            android:layout_gravity="end"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:ems="5"
+            android:inputType="numberDecimal"/>
+
+        <TextView
+            android:id="@+id/drill_string_et_input_ds_id_unit"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:text="@string/in"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:padding="@dimen/paddingAround"/>
+
+        <TextView
+            android:text="@string/drill_string_od"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:padding="@dimen/paddingAround"/>
+
+        <EditText android:id="@+id/drill_string_et_update_ds_od"
+            android:textAlignment="center"
+            android:layout_gravity="end"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_column="1"
+            android:layout_row="2"
+            android:ems="5"
+            android:inputType="numberDecimal"/>
+
+        <TextView
+            android:id="@+id/drill_string_et_input_ds_od_unit"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:text="@string/in"
+            android:layout_column="2"
+            android:layout_row="2"
+            android:padding="@dimen/paddingAround"/>
+
+        <TextView
+            android:text="@string/drill_string_length"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_column="0"
+            android:layout_row="3"
+            android:padding="@dimen/paddingAround"/>
+
+        <EditText android:id="@+id/drill_string_et_update_ds_length"
+            android:textAlignment="center"
+            android:layout_gravity="end"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_column="1"
+            android:layout_row="3"
+            android:ems="5"
+            android:inputType="numberDecimal"/>
+
+        <TextView
+            android:id="@+id/drill_string_et_input_ds_length_unit"
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:text="@string/in"
+            android:layout_column="2"
+            android:layout_row="3"
+            android:padding="@dimen/paddingAround"/>
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/drill_string_update_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_data"
+            android:textColor="@color/textColor"
+            style="?attr/buttonBarButtonStyle"/>
+        <Button
+            android:id="@+id/drill_string_dismiss_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text="@string/dismiss"
+            style="?attr/buttonBarButtonStyle"/>
+    </LinearLayout>
+
+</LinearLayout>

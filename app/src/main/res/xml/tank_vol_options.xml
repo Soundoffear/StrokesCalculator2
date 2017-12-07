@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Tank Volume Units">
+
+        <ListPreference
+            android:defaultValue="@string/in"
+            android:entries="@array/diameter_liner_entry"
+            android:entryValues="@array/diameter_liner_entry"
+            android:key="TANK_DIAMETER_UNITS"
+            android:summary="Set up diameter units of tank"
+            android:title="Diameter Units" />
+
+        <ListPreference
+            android:defaultValue="@string/in"
+            android:entries="@array/stroke_length_entry"
+            android:entryValues="@array/stroke_length_entry"
+            android:key="TANK_LENGTH_UNITS"
+            android:summary="Set up units for width, length, height of tank"
+            android:title="Length Units" />
+
+        <ListPreference
+            android:title="Volume Units"
+            android:summary="Set up volume units"
+            android:key="TANK_VOLUME_UNITS"
+            android:entries="@array/volume_units_entry"
+            android:entryValues="@array/volume_units_entry"
+            android:defaultValue="@string/bbl" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

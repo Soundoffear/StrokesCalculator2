@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/colorBackground"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_column="0"
+            android:layout_columnWeight="2"
+            android:layout_gravity="end"
+            android:layout_row="0"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/liner_diameter"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <EditText
+            android:id="@+id/duplex_liner_diameter_input"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="end"
+            android:layout_row="0"
+            android:ems="6"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="true"
+            android:text="@string/zero"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <TextView
+            android:id="@+id/duplex_liner_diameter_unit"
+            android:layout_column="2"
+            android:layout_columnWeight="1"
+            android:layout_gravity="start"
+            android:layout_row="0"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/in"
+            android:textAlignment="textStart"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <TextView
+            android:layout_column="0"
+            android:layout_gravity="end"
+            android:layout_row="1"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/stroke_length"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <EditText
+            android:id="@+id/duplex_stroke_length_input"
+            android:layout_column="1"
+            android:layout_gravity="end"
+            android:layout_row="1"
+            android:ems="6"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="true"
+            android:text="@string/zero"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <TextView
+            android:id="@+id/duplex_stroke_length_unit"
+            android:layout_column="2"
+            android:layout_gravity="start"
+            android:layout_row="1"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/in"
+            android:textAlignment="textStart"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <TextView
+            android:layout_column="0"
+            android:layout_gravity="end"
+            android:layout_row="2"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/rod_length"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <EditText
+            android:id="@+id/duplex_rod_diameter_input"
+            android:layout_column="1"
+            android:layout_gravity="end"
+            android:layout_row="2"
+            android:ems="6"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="true"
+            android:text="@string/zero"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <TextView
+            android:id="@+id/duplex_rod_diameter_unit"
+            android:layout_column="2"
+            android:layout_gravity="start"
+            android:layout_row="2"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/in"
+            android:textAlignment="textStart"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <TextView
+            android:layout_column="0"
+            android:layout_gravity="end"
+            android:layout_row="3"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/pump_efficiency"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <EditText
+            android:id="@+id/duplex_efficiency_input"
+            android:layout_column="1"
+            android:layout_gravity="end"
+            android:layout_row="3"
+            android:ems="6"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="true"
+            android:text="@string/zero"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <TextView
+            android:id="@+id/duplex_efficiency_unit"
+            android:layout_column="2"
+            android:layout_gravity="start"
+            android:layout_row="3"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/percent"
+            android:textAlignment="textStart"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_columnSpan="3"
+            android:layout_row="4"
+            android:orientation="horizontal"
+            android:padding="@dimen/paddingAround">
+
+            <Button
+                android:id="@+id/duplex_clear_data"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/clear"
+                android:textAlignment="center"
+                android:textSize="@dimen/generalTextSize" />
+
+            <Button
+                android:id="@+id/duplex_calc_data"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/calculate"
+                android:textAlignment="center"
+                android:textSize="@dimen/generalTextSize" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_column="0"
+            android:layout_gravity="end"
+            android:layout_row="5"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/pump_output"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+        <TextView
+            android:id="@+id/duplex_pump_output_value"
+            android:layout_column="1"
+            android:layout_gravity="end"
+            android:layout_row="5"
+            android:inputType=""
+            android:text="@string/zero"
+            android:textAlignment="textEnd"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize"
+            android:padding="@dimen/paddingAround"/>
+
+        <TextView
+            android:id="@+id/duplex_pump_output_unit"
+            android:layout_column="2"
+            android:layout_gravity="start"
+            android:layout_row="5"
+            android:padding="@dimen/paddingAround"
+            android:text="@string/bbl_stk"
+            android:textAlignment="textStart"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/generalTextSize" />
+
+    </GridLayout>
+
+</LinearLayout>

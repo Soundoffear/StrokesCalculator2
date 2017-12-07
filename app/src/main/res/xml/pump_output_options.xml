@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Triplex Pump">
+        <ListPreference
+            android:defaultValue="@string/in"
+            android:entries="@array/diameter_liner_entry"
+            android:entryValues="@array/diameter_liner_entry"
+            android:summary="Select your diameter units for liner"
+            android:title="Diameter Unit"
+            android:key="TRIPLEX_DIAMETER_UNIT"/>
+
+        <ListPreference
+            android:defaultValue="@string/in"
+            android:entries="@array/stroke_length_entry"
+            android:entryValues="@array/stroke_length_entry"
+            android:summary="Select your stroke length units of liner"
+            android:title="Stroke Length"
+            android:key="TRIPLEX_LENGTH_UNIT"/>
+
+        <ListPreference
+            android:defaultValue="@string/bbl_stk"
+            android:entries="@array/pump_output_entry"
+            android:entryValues="@array/pump_output_entry"
+            android:summary="Select your pump output units"
+            android:title="Pump Output"
+            android:key="TRIPLEX_OUTPUT_UNIT"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Duplex Pump">
+        <ListPreference
+            android:defaultValue="@string/in"
+            android:entries="@array/diameter_liner_entry"
+            android:entryValues="@array/diameter_liner_entry"
+            android:summary="Select your diameter unit for liner and rod"
+            android:title="Diameter Unit"
+            android:key="DUPLEX_DIAMETER_UNIT"/>
+        <ListPreference
+            android:defaultValue="@string/in"
+            android:entries="@array/stroke_length_entry"
+            android:entryValues="@array/stroke_length_entry"
+            android:summary="Select your stroke length units of liner"
+            android:title="Stroke Length"
+            android:key="DUPLEX_LENGTH_UNIT"/>
+        <ListPreference
+            android:defaultValue="@string/bbl_stk"
+            android:entryValues="@array/pump_output_entry"
+            android:entries="@array/pump_output_entry"
+            android:summary="Select your pump output units"
+            android:title="Pump Output"
+            android:key="DUPLEX_OUTPUT_UNIT"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

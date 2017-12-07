@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Input Units" >
+
+        <ListPreference
+            android:title="@string/pump_output"
+            android:summary="Pump Output Units"
+            android:entries="@array/pump_output_entry"
+            android:entryValues="@array/pump_output_entry"
+            android:defaultValue="@string/bbl_stk"
+            android:key="@string/PREFS_AV_PO_UNIT"/>
+
+        <ListPreference
+            android:title="Diameter"
+            android:summary="Inner Diameter of Casing/Hole and Outer Diameter of Pipe/Casing/Tubular"
+            android:entryValues="@array/diameter_liner_entry"
+            android:entries="@array/diameter_liner_entry"
+            android:defaultValue="@string/in"
+            android:key="@string/PREFS_AV_DIA_UNIT"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Output Units">
+
+        <ListPreference
+            android:title="Annular Velocity"
+            android:summary="Annular Velocity Units"
+            android:entries="@array/av_units"
+            android:entryValues="@array/av_units"
+            android:defaultValue="@string/ft_min"
+            android:key="@string/PREFS_AV_SPEED_UNITS" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/tVol_rect_tank_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/image_of_tank"
+            android:src="@drawable/rect_tank_final" />
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="0"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/h_height"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="0"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/w_width"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="2"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="0"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/l_length"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="3"
+                android:layout_gravity="center"
+                android:layout_row="0"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/f_fluid_level"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="25dp">
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="0"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/l_length"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <EditText
+                android:id="@+id/tank_vol_rect_length_input"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="0"
+                android:ems="6"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/paddingAround"
+                android:selectAllOnFocus="true"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_rect_length_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="0"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/in"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="1"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/h_height"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <EditText
+                android:id="@+id/tank_vol_rect_height_input"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="1"
+                android:ems="6"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/paddingAround"
+                android:selectAllOnFocus="true"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_rect_height_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="1"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/in"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="2"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/w_width"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <EditText
+                android:id="@+id/tank_vol_rect_width_input"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="2"
+                android:ems="6"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/paddingAround"
+                android:selectAllOnFocus="true"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_rect_width_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="2"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/in"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="3"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/f_fluid_level"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <EditText
+                android:id="@+id/tank_vol_rect_fluid_level_input"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="3"
+                android:ems="6"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/paddingAround"
+                android:selectAllOnFocus="true"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_rect_fluid_level_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="3"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/in"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <LinearLayout
+                android:layout_column="0"
+                android:layout_columnSpan="3"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="4"
+                android:orientation="horizontal"
+                android:padding="@dimen/paddingAround">
+
+                <Button
+                    android:id="@+id/tank_volume_rect_calculate"
+                    style="?attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/calculate" />
+
+                <Button
+                    android:id="@+id/tank_volume_rect_clear"
+                    style="?attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="5"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/tank_total_volume"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_rect_total_volume_result"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="5"
+                android:ems="6"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_rect_total_volume_result_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="5"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/bbl"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="end"
+                android:layout_row="6"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/fluid_volume_in_tank"
+                android:textAlignment="textEnd"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_rect_fluid_volume_result"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_row="6"
+                android:ems="6"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/zero"
+                android:textAlignment="center"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+            <TextView
+                android:id="@+id/tank_vol_rect_fluid_volume_result_units"
+                android:layout_column="2"
+                android:layout_gravity="start"
+                android:layout_row="6"
+                android:padding="@dimen/paddingAround"
+                android:text="@string/bbl"
+                android:textAlignment="textStart"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/listViewTextSize" />
+
+        </GridLayout>
+
+    </LinearLayout>
+
+</ScrollView>

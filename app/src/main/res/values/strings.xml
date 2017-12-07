@@ -1,0 +1,104 @@
+<resources>
+    <string name="app_name">Strokes Calculator 2.0</string>
+    <string name="strokes_calculation">Strokes and\n Volume Calculation</string>
+    <string name="pump_output">Pump Output</string>
+    <string name="volume_calculations">Volume calculations</string>
+    <string name="annular_velocity">Annular velocity</string>
+
+    <string name="zero">0.00</string>
+    <string name="rate_app">Rate App</string>
+    <string name="other_apps">Other Apps</string>
+
+    <string name="unit_ad_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="liner_diameter">Liner diameter</string>
+    <string name="in">in</string>
+    <string name="stroke_length">Stroke Length</string>
+    <string name="percent">%</string>
+    <string name="pump_efficiency">Pump Efficiency</string>
+    <string name="clear">CLEAR</string>
+    <string name="calculate">CALCULATE</string>
+    <string name="pump_output_textView">Pump Output</string>
+    <string name="bbl_stk">bbl/stk</string>
+    <string name="units">Units</string>
+    <string name="rod_length">Rod Length</string>
+    <string name="drill_string_data">Drill String Data</string>
+    <string name="drill_string_id">Drill String ID</string>
+    <string name="drill_string_od">Drill String OD</string>
+    <string name="feet">feet</string>
+    <string name="drill_string_length">Drill String Length</string>
+    <string name="casing_data">Casing Data</string>
+    <string name="casing_id">Casing ID</string>
+    <string name="casing_length">Casing Depth</string>
+    <string name="open_hole_data">Open Hole Data</string>
+    <string name="open_hole_id">Open Hole ID</string>
+    <string name="open_hole_depth">Open Hole Depth</string>
+    <string name="drill_string_volume">Drill String Volume</string>
+    <string name="bbl">bbl</string>
+    <string name="empty_casing_volume">Empty Casing Volume</string>
+    <string name="annular_casing_volume">Annular Casing Volume</string>
+    <string name="empty_casing_strokes">Empty Casing Strokes</string>
+    <string name="drill_string_strokes">Drill String Strokes</string>
+    <string name="annular_casing_strokes">Annular Casing Strokes</string>
+    <string name="stk">stk</string>
+    <string name="empty_open_hole_volume">Empty Open Hole Volume</string>
+    <string name="empty_open_hole_strokes">Empty Open Hole Strokes</string>
+    <string name="open_hole_annular_volume">Open Hole Annular Volume</string>
+    <string name="open_hole_annular_strokes">Open Hole Annular Strokes</string>
+    <string name="pump_data">Pump Data</string>
+    <string name="surface_to_bit_volume">Surface to Bit Volume</string>
+    <string name="surface_to_bit_strokes">Surface to Bit Strokes</string>
+    <string name="bottoms_up_volume">Bottoms-Up Volume</string>
+    <string name="bottoms_up_strokes">Bottoms-Up Strokes</string>
+    <string name="surface_to_surface_volume">Surface to Surface Volume</string>
+    <string name="surface_to_surface_strokes">Surface to Surface Strokes</string>
+    <string name="inner_diameter">Inner Diameter</string>
+    <string name="outer_diameter">Outer Diameter</string>
+    <string name="depth">Depth</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="add_data">Add Data</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="end_md">End MD</string>
+    <string name="m">m</string>
+    <string name="top_md">Top MD</string>
+    <string name="drill_string_id_listview">Drill String ID</string>
+    <string name="drill_string_od_listview">Drill String OD</string>
+    <string name="name">Name</string>
+    <string name="update_data">Update Data</string>
+    <string name="casing_data_results">Casing Data</string>
+    <string name="volume">Volume</string>
+    <string name="open_hole_data_results">Open Hole Data</string>
+    <string name="casing_annulus">Casing Annulus</string>
+    <string name="strokes">Strokes</string>
+    <string name="open_hole_annulus">Open Hole Annulus</string>
+    <string name="drill_pipe_volume">Drill String Volume - Surface to Bottom</string>
+    <string name="total_annular_volume_bottoms_up">Total Annular Volume - Bottoms-Up</string>
+    <string name="strokes_per_minute">Strokes Per Minute</string>
+    <string name="spm">SPM</string>
+    <string name="ft_min">ft/min</string>
+    <string name="PREFS_AV_PO_UNIT">AV_PUMP_OUTPUT_UNIT</string>
+    <string name="PREFS_AV_DIA_UNIT">PREFS_AV_DIA_UNIT</string>
+    <string name="PREFS_AV_SPEED_UNITS">PREFS_AV_SPEED_UNITS</string>
+    <string name="image_of_tank">Image of Tank</string>
+    <string name="h_height">H - height</string>
+    <string name="w_width">W - width</string>
+    <string name="l_length">L - length</string>
+    <string name="f_fluid_level">F - fluid level</string>
+    <string name="d_diameter">D - diameter</string>
+    <string name="tank_total_volume">Tank Total Volume</string>
+    <string name="fluid_volume_in_tank">Fluid Volume in Tank</string>
+
+    <string name="first_run_message">Using this application you agree that you are using it at your own risk and you
+
+understand that. If something happens like getting run off location, you lose your job
+
+or something else I am not to blame since you could always calculate everything by
+
+yourself.\nIf you agree to above please hit okay and please rate app if you feel like it!
+
+Thanks!</string>
+    <string name="icon_image">icon_image</string>
+
+</resources>

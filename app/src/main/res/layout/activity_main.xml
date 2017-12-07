@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:gravity="center_horizontal"
+    tools:context="com.oilfieldapps.allspark.strokescalculator.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_activity_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary" />
+
+    <GridLayout
+        android:id="@+id/grid_icons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_activity_toolbar"
+        android:layout_centerHorizontal="true">
+
+        <ImageButton
+            android:id="@+id/strokes_and_volume_calculations"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:padding="5dp"
+            android:src="@drawable/snv"
+            android:background="#0000"
+            android:contentDescription="@string/icon_image" />
+
+        <ImageButton
+            android:id="@+id/pump_output"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:padding="5dp"
+            android:src="@drawable/p_o"
+            android:background="#0000"
+            android:contentDescription="@string/icon_image"/>
+
+        <ImageButton
+            android:id="@+id/tank_volume"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:padding="5dp"
+            android:src="@drawable/t_vol"
+            android:background="#0000"
+            android:contentDescription="@string/icon_image"/>
+
+        <ImageButton
+            android:id="@+id/annular_velocity"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:padding="5dp"
+            android:src="@drawable/av"
+            android:background="#0000"
+            android:contentDescription="@string/icon_image"/>
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_below="@+id/grid_icons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/snv_rateApp"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:text="@string/rate_app"
+            android:textAlignment="center"
+            android:textSize="@dimen/generalTextSize" />
+
+        <Button
+            android:id="@+id/snv_otherApps"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:text="@string/other_apps"
+            android:textAlignment="center"
+            android:textSize="@dimen/generalTextSize" />
+    </GridLayout>
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>

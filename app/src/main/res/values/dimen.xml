@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="generalTextSize">16sp</dimen>
+    <dimen name="listViewTextSize">14sp</dimen>
+    <dimen name="paddingAround">5dp</dimen>
+    <dimen name="listViePadding">2sp</dimen>
+</resources>

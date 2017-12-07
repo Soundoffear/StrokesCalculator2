@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:id="@+id/drill_string_results_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/volume"
+        android:textColor="@color/textColor"
+        android:textAlignment="center"
+        android:textSize="@dimen/generalTextSize"
+        android:padding="@dimen/paddingAround"/>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:text="@string/volume"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:padding="@dimen/listViePadding"/>
+
+        <TextView
+            android:id="@+id/drill_string_results_volume"
+            android:text="@string/zero"
+            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_gravity="center_horizontal"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:padding="@dimen/listViePadding" />
+
+        <TextView
+            android:id="@+id/drill_string_results_volume_units"
+            android:text="@string/bbl"
+            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_gravity="center_horizontal"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:padding="@dimen/listViePadding"/>
+
+        <TextView
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/listViewTextSize"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:text="@string/strokes"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:padding="@dimen/listViePadding"/>
+
+        <TextView
+            android:id="@+id/drill_string_results_strokes"
+            android:text="@string/zero"
+            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_gravity="center_horizontal"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:padding="@dimen/listViePadding" />
+
+        <TextView
+            android:id="@+id/drill_string_results_strokes_units"
+            android:text="@string/stk"
+            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:textSize="@dimen/listViewTextSize"
+            android:layout_gravity="center_horizontal"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:padding="@dimen/listViePadding"/>
+
+    </GridLayout>
+
+</LinearLayout>

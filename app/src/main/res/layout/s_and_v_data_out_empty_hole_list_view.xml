@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:id="@+id/list_view_hole_results_no_pipe_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/volume"
+        android:textColor="@color/textColor"
+        android:textAlignment="center"
+        android:textSize="@dimen/generalTextSize"
+        android:padding="@dimen/paddingAround"/>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:textSize="@dimen/listViewTextSize"
+            android:textColor="@color/textColor"
+            android:text="@string/volume"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:padding="@dimen/listViePadding"/>
+
+        <TextView
+            android:id="@+id/hole_result_no_pipe_volume"
+            android:text="@string/zero"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/listViewTextSize"
+            android:textColor="@color/textColor"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:padding="@dimen/listViePadding"/>
+
+        <TextView
+            android:id="@+id/hole_result_no_pipe_volume_units"
+            android:text="@string/bbl"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd"
+            android:textSize="@dimen/listViewTextSize"
+            android:textColor="@color/textColor"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:padding="@dimen/listViePadding"/>
+
+    </GridLayout>
+
+</LinearLayout>

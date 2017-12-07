@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="diameter_liner_entry">
+        <item>in</item>
+        <item>mm</item>
+        <item>cm</item>
+    </string-array>
+    <string-array name="stroke_length_entry">
+        <item>in</item>
+        <item>mm</item>
+        <item>cm</item>
+    </string-array>
+    <string-array name="pump_output_entry">
+        <item>bbl/stk</item>
+        <item>gal/stk</item>
+        <item>liter/stk</item>
+        <item>m3/stk</item>
+    </string-array>
+
+    <string-array name="length_units_entry">
+        <item>ft</item>
+        <item>m</item>
+    </string-array>
+
+    <string-array name="volume_units_entry">
+        <item>bbl</item>
+        <item>m3</item>
+        <item>ft3</item>
+        <item>gal</item>
+        <item>l</item>
+    </string-array>
+
+    <string-array name="av_units">
+        <item>ft/min</item>
+        <item>ft/s</item>
+        <item>m/s</item>
+        <item>m/min</item>
+    </string-array>
+
+</resources>
