@@ -152,7 +152,6 @@ public class DSDataDisplay extends Fragment {
         SharedPreferences.Editor sEditor = sharedPreferences.edit();
         sEditor.putBoolean(BIT_CHECK_BOX_STATE, isChecked);
         sEditor.apply();
-        Toast.makeText(getContext(), String.valueOf(isChecked), Toast.LENGTH_SHORT).show();
     }
 
     private boolean restoreCheckBoxState() {

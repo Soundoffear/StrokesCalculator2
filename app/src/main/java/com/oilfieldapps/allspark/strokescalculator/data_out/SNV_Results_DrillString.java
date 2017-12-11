@@ -1,23 +1,16 @@
 package com.oilfieldapps.allspark.strokescalculator.data_out;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.oilfieldapps.allspark.strokescalculator.R;
-import com.oilfieldapps.allspark.strokescalculator.SandV_Free;
-import com.oilfieldapps.allspark.strokescalculator.SandV_Free_results;
-import com.oilfieldapps.allspark.strokescalculator.converters.Converter;
 import com.oilfieldapps.allspark.strokescalculator.custom_adapters.DrillString_results_adapter;
-import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_Data;
-import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_DataBase;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.DrillString_Results;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.DrillString_Results_DataBase;
 import com.oilfieldapps.allspark.strokescalculator.data_in.DSDataDisplay;

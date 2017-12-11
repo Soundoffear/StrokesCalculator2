@@ -97,6 +97,7 @@ public class SandV_Free extends AppCompatActivity {
 
                 SNV_Calculator.calculateAnnularData(SandV_Free.this, pump_output);
                 SNV_Calculator.calculateDrillStringData(SandV_Free.this, pump_output);
+                SNV_Calculator.calculateEmptyHoleVolume(SandV_Free.this);
 
                 Intent data_to_results = new Intent(SandV_Free.this, SandV_Free_results.class);
                 data_to_results.putExtra("STRING_PUMP_OUTPUT", pump_input_string);
