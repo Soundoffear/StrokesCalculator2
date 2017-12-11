@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.oilfieldapps.allspark.strokescalculator.calculators.SNV_Calculator;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_DataBase;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.HoleData_DataBase;
 import com.oilfieldapps.allspark.strokescalculator.data_in.DSDataDisplay;
@@ -90,7 +91,12 @@ public class SandV_Free extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 String pump_input_string = pump_output_input.getText().toString();
                 editor.putString("PUMP_STRING", pump_input_string);
-                editor.commit();
+                editor.apply();
+
+                double pump_output = Double.parseDouble(pump_output_input.getText().toString());
+
+                SNV_Calculator.calculateAnnularData(SandV_Free.this, pump_output);
+                SNV_Calculator.calculateDrillStringData(SandV_Free.this, pump_output);
 
                 Intent data_to_results = new Intent(SandV_Free.this, SandV_Free_results.class);
                 data_to_results.putExtra("STRING_PUMP_OUTPUT", pump_input_string);

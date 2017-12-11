@@ -17,10 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.oilfieldapps.allspark.strokescalculator.R;
 import com.oilfieldapps.allspark.strokescalculator.custom_adapters.Annulus_data_adapter;
@@ -45,6 +48,7 @@ public class DSDataDisplay extends Fragment {
     private ConstraintLayout constraintLayout;
     private Annulus_DataBase annulus_dataBase;
 
+    private CheckBox fromBit_CheckBox;
     private PopupWindow ds_popupWindow;
     private Annulus_Data annulusData;
 
@@ -62,9 +66,28 @@ public class DSDataDisplay extends Fragment {
         ds_listView = view.findViewById(R.id.listView_dsData);
         ds_add_fab = view.findViewById(R.id.dsData_input_fab);
         constraintLayout = view.findViewById(R.id.ds_const_layout);
+        fromBit_CheckBox = view.findViewById(R.id.cb_startInputFromBit);
         annulus_dataBase = new Annulus_DataBase(getContext());
         annulusDataList = new ArrayList<>();
         annulusDataList = annulus_dataBase.getAllItems();
+
+        fromBit_CheckBox.setChecked(restoreCheckBoxState());
+
+        fromBit_CheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                saveCheckBoxState(isChecked);
+                // TODO make sure that when adapter will be notified each time checkbox is checked or unchecked and change view in real-time
+            }
+        });
+
+        if(fromBit_CheckBox.isChecked()) {
+            List<Annulus_Data> invertedAnnulusData = new ArrayList<>();
+            for(int i = (annulusDataList.size() - 1); i >= 0; i--) {
+                invertedAnnulusData.add(annulusDataList.get(i));
+            }
+            annulusDataList = invertedAnnulusData;
+        }
 
         annulus_data_adapter = new Annulus_data_adapter(getContext(), annulusDataList);
 
@@ -122,6 +145,23 @@ public class DSDataDisplay extends Fragment {
         return view;
     }
 
+    public static final String BIT_CHECK_BOX_STATE = "bit-checkbox";
+
+    private void saveCheckBoxState(boolean isChecked) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor sEditor = sharedPreferences.edit();
+        sEditor.putBoolean(BIT_CHECK_BOX_STATE, isChecked);
+        sEditor.apply();
+        Toast.makeText(getContext(), String.valueOf(isChecked), Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean restoreCheckBoxState() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean isCheckedBox = sharedPreferences.getBoolean(BIT_CHECK_BOX_STATE, false);
+        Toast.makeText(getContext(), String.valueOf(isCheckedBox), Toast.LENGTH_SHORT).show();
+        return isCheckedBox;
+    }
+
     private void CreateDS_PopUp() {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popUpView = inflater.inflate(R.layout.popup_window_drill_string_add_new, null);
@@ -176,7 +216,11 @@ public class DSDataDisplay extends Fragment {
 
                     annulusData = new Annulus_Data(name, id, od, length, diameter_chosen_units, length_chosen_units);
                     annulus_dataBase.addItemIntoDS_DB(annulusData);
-                    annulusDataList.add(annulusData);
+                    if(!fromBit_CheckBox.isChecked()) {
+                        annulusDataList.add(annulusData);
+                    } else {
+                        annulusDataList.add(0, annulusData);
+                    }
                     ds_listView.setAdapter(annulus_data_adapter);
                     ds_popupWindow.dismiss();
                 } catch (NumberFormatException nfe) {
@@ -288,6 +332,9 @@ public class DSDataDisplay extends Fragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         String diameter_units = sharedPreferences.getString("SNV_DIAMETER_UNITS", getResources().getString(R.string.in));
         String length_units = sharedPreferences.getString("SNV_LENGTH_UNITS", getResources().getString(R.string.feet));
+        boolean checkBoxState = sharedPreferences.getBoolean(BIT_CHECK_BOX_STATE, false);
+
+        fromBit_CheckBox.setChecked(checkBoxState);
 
         annulus_dataBase.updateDB_units(diameter_units, length_units);
         for (int i = 0; i < annulusDataList.size(); i++) {

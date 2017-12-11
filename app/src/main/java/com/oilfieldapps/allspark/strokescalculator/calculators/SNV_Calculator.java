@@ -6,13 +6,17 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.oilfieldapps.allspark.strokescalculator.R;
+import com.oilfieldapps.allspark.strokescalculator.SandV_Free_results;
 import com.oilfieldapps.allspark.strokescalculator.converters.Converter;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_Data;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_DataBase;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_Results;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_Results_DataBase;
+import com.oilfieldapps.allspark.strokescalculator.data_and_databases.DrillString_Results;
+import com.oilfieldapps.allspark.strokescalculator.data_and_databases.DrillString_Results_DataBase;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.HoleData;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.HoleData_DataBase;
+import com.oilfieldapps.allspark.strokescalculator.data_in.DSDataDisplay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +27,9 @@ import java.util.List;
 
 public class SNV_Calculator {
 
-    private static List<Annulus_Data> annulusDataList;
-    private static List<HoleData> holeDataList;
     private static String volumeUnits;
 
-    public static void CalculateAnnularData(Context context, Annulus_DataBase annulus_dataBase, HoleData_DataBase holeData_dataBase, double pumpOutput,
-                                            Annulus_Results_DataBase annulus_results_dataBase) {
+    public static void calculateAnnularData(Context context, double pumpOutput) {
 
         double startingData = 0;
         double tempCalculatedLength = 0;
@@ -40,19 +41,44 @@ public class SNV_Calculator {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         volumeUnits = sharedPreferences.getString("SNV_VOLUME_UNITS", context.getResources().getString(R.string.bbl));
+        String pumpOutputUnits = sharedPreferences.getString("SNV_PUMP_OUTPUT", context.getResources().getString(R.string.bbl_stk));
 
-        annulusDataList = annulus_dataBase.getAllItems();
+        pumpOutput = Converter.outputConverter(pumpOutputUnits, context.getResources().getString(R.string.bbl_stk), pumpOutput);
 
+        // get all database
+        Annulus_DataBase annulus_dataBase = new Annulus_DataBase(context);
+        HoleData_DataBase holeData_dataBase = new HoleData_DataBase(context);
+        Annulus_Results_DataBase annulus_results_dataBase = new Annulus_Results_DataBase(context);
+        annulus_results_dataBase.delateDatabase(); //delete database to avoid duplication of elements
+
+        List<Annulus_Data> annulusDataList = annulus_dataBase.getAllItems();
+        List<HoleData> holeDataList = holeData_dataBase.getAllItem();
+
+        // invert annulusData if checkbox is true;
+        boolean isCheckBoxChecked = sharedPreferences.getBoolean(DSDataDisplay.BIT_CHECK_BOX_STATE, false);
+
+        if(isCheckBoxChecked) {
+            List<Annulus_Data> invertedAnnulusData = new ArrayList<>();
+            for(int i = (annulusDataList.size() - 1); i >= 0; i--) {
+                invertedAnnulusData.add(annulusDataList.get(i));
+            }
+            annulusDataList = invertedAnnulusData;
+            for(int i = 0; i < annulusDataList.size();i++) {
+                Log.d("TEST ANN DATA 1", annulusDataList.get(i).getString_name());
+            }
+        }
+
+        for(int i = 0; i < annulusDataList.size();i++) {
+            Log.d("TEST ANN DATA 2", annulusDataList.get(i).getString_name());
+        }
+
+        // sum up all values by increment and create list for calculation
         List<Double> sumOfAllDSLengths = new ArrayList<>();
         double tempSum = 0;
         for (int ds = 0; ds < annulusDataList.size(); ds++) {
             tempSum = tempSum + Double.parseDouble(annulusDataList.get(ds).getString_length());
             sumOfAllDSLengths.add(tempSum);
         }
-
-        // testing 2
-
-        holeDataList = holeData_dataBase.getAllItem();
 
         // Annular volume calculator
 
@@ -224,6 +250,50 @@ public class SNV_Calculator {
         dataOut = Math.round(dataOut);
         dataOut = dataOut / 100;
         return dataOut;
+    }
+
+    public static void calculateDrillStringData(Context context, double pump_output) {
+
+        DrillString_Results drillString_results;
+
+        Annulus_DataBase annulus_dataBase = new Annulus_DataBase(context);
+        List<Annulus_Data> annulus_dataList = annulus_dataBase.getAllItems();
+
+        DrillString_Results_DataBase drillString_results_dataBase = new DrillString_Results_DataBase(context);
+        drillString_results_dataBase.deleteDB();
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String volumeUnits = sharedPreferences.getString("SNV_VOLUME_UNITS", context.getResources().getString(R.string.bbl));
+        String pumpOutputUnits = sharedPreferences.getString("SNV_PUMP_OUTPUT", context.getResources().getString(R.string.bbl_stk));
+
+        double totalVolume = 0;
+        double totalStrokes = 0;
+        //Calculate
+        for(int i = 0; i < annulus_dataList.size(); i++) {
+            String name = annulus_dataList.get(i).getString_name();
+            String diameter_units = annulus_dataList.get(i).getDiameter_units();
+            String length_units = annulus_dataList.get(i).getLength_units();
+            double id = Double.parseDouble(annulus_dataList.get(i).getString_id());
+            id = Converter.diameterConverter(diameter_units, context.getResources().getString(R.string.in), id);
+            double length = Double.parseDouble(annulus_dataList.get(i).getString_length());
+            length = Converter.lengthConverter(length_units, context.getResources().getString(R.string.feet), length);
+
+            double volume = Math.pow(id, 2) / 1029.4 * length;
+            double volumeConverted = Converter.VolumeConverter(context.getResources().getString(R.string.bbl), volumeUnits, volume);
+            pump_output = Converter.outputConverter(pumpOutputUnits, context.getResources().getString(R.string.bbl_stk), pump_output);
+            double strokes = volume / pump_output;
+            strokes = Math.round(strokes);
+            volumeConverted = roundUpToTwoDec(volumeConverted);
+            String volumeString = String.valueOf(volumeConverted);
+            drillString_results = new DrillString_Results(name, volumeString, String.valueOf(strokes), volumeUnits);
+            drillString_results_dataBase.inputItem(drillString_results);
+            totalVolume = totalVolume + volumeConverted;
+            totalStrokes = totalStrokes + strokes;
+
+        }
+        String totalName = "Total Drill String Values";
+        drillString_results = new DrillString_Results(totalName, String.valueOf(totalVolume), String.valueOf(totalStrokes), volumeUnits);
+        drillString_results_dataBase.inputItem(drillString_results);
     }
 
 }

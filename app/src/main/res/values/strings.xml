@@ -100,5 +100,6 @@ yourself.\nIf you agree to above please hit okay and please rate app if you feel
 
 Thanks!</string>
     <string name="icon_image">icon_image</string>
+    <string name="input_drill_string_from_bit">Input Drill String Parts Starting From Bit</string>
 
 </resources>
