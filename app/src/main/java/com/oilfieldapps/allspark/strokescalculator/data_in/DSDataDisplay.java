@@ -77,7 +77,20 @@ public class DSDataDisplay extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 saveCheckBoxState(isChecked);
-                // TODO make sure that when adapter will be notified each time checkbox is checked or unchecked and change view in real-time
+                if(isChecked) {
+                        List<Annulus_Data> invertedAnnulusData = new ArrayList<>();
+                        for(int i = (annulusDataList.size() - 1); i >= 0; i--) {
+                            invertedAnnulusData.add(annulusDataList.get(i));
+                        }
+                        annulusDataList = invertedAnnulusData;
+                        annulus_data_adapter = new Annulus_data_adapter(getContext(), annulusDataList);
+                        ds_listView.setAdapter(annulus_data_adapter);
+                } else {
+                    annulusDataList = new ArrayList<>();
+                    annulusDataList = annulus_dataBase.getAllItems();
+                    annulus_data_adapter = new Annulus_data_adapter(getContext(), annulusDataList);
+                    ds_listView.setAdapter(annulus_data_adapter);
+                }
             }
         });
 
@@ -145,6 +158,7 @@ public class DSDataDisplay extends Fragment {
         return view;
     }
 
+
     public static final String BIT_CHECK_BOX_STATE = "bit-checkbox";
 
     private void saveCheckBoxState(boolean isChecked) {
@@ -162,6 +176,9 @@ public class DSDataDisplay extends Fragment {
     }
 
     private void CreateDS_PopUp() {
+
+        //TODO Add option 'calculate remaining Drill String length' to force calculation to bottom
+
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popUpView = inflater.inflate(R.layout.popup_window_drill_string_add_new, null);
 
