@@ -2,13 +2,14 @@ package com.oilfieldapps.allspark.strokescalculator.data_out;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.oilfieldapps.allspark.strokescalculator.R;
-import com.oilfieldapps.allspark.strokescalculator.custom_adapters.Annulus_results_adapter;
+import com.oilfieldapps.allspark.strokescalculator.custom_adapters.AnnularResultsAdapter;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_Results;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_Results_DataBase;
 
@@ -21,12 +22,16 @@ public class SNV_Results_Annulus extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.s_and_v_data_out_annular, null);
 
-        ListView output_listView_drillString = view.findViewById(R.id.list_view_annulus_results);
+        RecyclerView recyclerView = view.findViewById(R.id.annular_out_recycler_view);
+
         Annulus_Results_DataBase annulusResults_dataBase = new Annulus_Results_DataBase(getContext());
 
         List<Annulus_Results> annulusResultsList = annulusResults_dataBase.getAllItem();
-        Annulus_results_adapter annulus_results_adapter = new Annulus_results_adapter(getContext(), annulusResultsList);
-        output_listView_drillString.setAdapter(annulus_results_adapter);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        AnnularResultsAdapter annularResultsAdapter = new AnnularResultsAdapter(getContext(), annulusResultsList);
+        recyclerView.setAdapter(annularResultsAdapter);
 
         return view;
     }

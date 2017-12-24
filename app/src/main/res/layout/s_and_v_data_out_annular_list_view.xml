@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/colorBackground">
 
     <TextView
-        android:id="@+id/list_view_ds_results_name"
+        android:id="@+id/recycler_view_annulus_results_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -29,7 +29,7 @@
             android:textSize="@dimen/listViewTextSize"
             android:padding="@dimen/listViePadding"/>
         <TextView
-            android:id="@+id/ds_result_volume"
+            android:id="@+id/annulus_result_volume"
             android:layout_row="0"
             android:layout_column="1"
             android:textColor="@color/textColor"
@@ -39,7 +39,7 @@
             android:text="@string/zero"
             android:padding="@dimen/listViePadding"/>
         <TextView
-            android:id="@+id/ds_result_volume_units"
+            android:id="@+id/annulus_result_volume_units"
             android:layout_row="0"
             android:layout_column="2"
             android:textColor="@color/textColor"
@@ -58,7 +58,7 @@
             android:textSize="@dimen/listViewTextSize"
             android:padding="@dimen/listViePadding"/>
         <TextView
-            android:id="@+id/ds_result_strokes"
+            android:id="@+id/annulus_result_strokes"
             android:layout_row="1"
             android:layout_column="1"
             android:textColor="@color/textColor"
@@ -68,7 +68,7 @@
             android:text="@string/zero"
             android:padding="@dimen/listViePadding"/>
         <TextView
-            android:id="@+id/ds_result_strokes_units"
+            android:id="@+id/annulus_result_strokes_units"
             android:layout_row="1"
             android:layout_column="2"
             android:textColor="@color/textColor"

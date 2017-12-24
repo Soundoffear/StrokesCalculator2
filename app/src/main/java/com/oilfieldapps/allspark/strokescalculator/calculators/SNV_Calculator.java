@@ -19,6 +19,7 @@ import com.oilfieldapps.allspark.strokescalculator.data_and_databases.HoleResult
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.HoleResults_DataBase;
 import com.oilfieldapps.allspark.strokescalculator.data_in.DSDataDisplay;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -293,7 +294,7 @@ public class SNV_Calculator {
 
         }
         String totalName = "Total Drill String Values";
-        drillString_results = new DrillString_Results(totalName, String.valueOf(totalVolume), String.valueOf(totalStrokes), volumeUnits);
+        drillString_results = new DrillString_Results(totalName, new DecimalFormat("0.00").format(totalVolume), String.valueOf(totalStrokes), volumeUnits);
         drillString_results_dataBase.inputItem(drillString_results);
     }
 

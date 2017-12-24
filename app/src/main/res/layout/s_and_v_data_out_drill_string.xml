@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <ListView
-        android:id="@+id/list_view_drill_string_results"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_drill_string_results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

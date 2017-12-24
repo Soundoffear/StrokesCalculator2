@@ -4,13 +4,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.oilfieldapps.allspark.strokescalculator.R;
-import com.oilfieldapps.allspark.strokescalculator.custom_adapters.DrillString_results_adapter;
+import com.oilfieldapps.allspark.strokescalculator.custom_adapters.DrillStringResultsAdapter;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.DrillString_Results;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.DrillString_Results_DataBase;
 import com.oilfieldapps.allspark.strokescalculator.data_in.DSDataDisplay;
@@ -18,18 +19,13 @@ import com.oilfieldapps.allspark.strokescalculator.data_in.DSDataDisplay;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Allspark on 10/09/2017.
- */
-
 public class SNV_Results_DrillString extends Fragment {
 
     //data in
-    ListView drill_string_results_list_view;
+    RecyclerView drill_string_results_recycler_view;
 
     //data out
     DrillString_Results_DataBase drillString_results_dataBase;
-    DrillString_results_adapter drillString_results_adapter;
     List<DrillString_Results> drillStringResultsList;
 
     @Override
@@ -37,7 +33,7 @@ public class SNV_Results_DrillString extends Fragment {
 
         View view = inflater.inflate(R.layout.s_and_v_data_out_drill_string, null);
 
-        drill_string_results_list_view = view.findViewById(R.id.list_view_drill_string_results);
+        drill_string_results_recycler_view = view.findViewById(R.id.recycler_view_drill_string_results);
 
         drillString_results_dataBase = new DrillString_Results_DataBase(getContext());
         drillStringResultsList = drillString_results_dataBase.getAllItems();
@@ -51,16 +47,18 @@ public class SNV_Results_DrillString extends Fragment {
             drillStringResultsList = invertedDSResults;
         }
 
-        drillString_results_adapter = new DrillString_results_adapter(getContext(), drillStringResultsList);
-        drill_string_results_list_view.setAdapter(drillString_results_adapter);
+        drill_string_results_recycler_view.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        drill_string_results_recycler_view.setLayoutManager(linearLayoutManager);
+        DrillStringResultsAdapter drillStringResultsAdapter = new DrillStringResultsAdapter(getContext(), drillStringResultsList);
+        drill_string_results_recycler_view.setAdapter(drillStringResultsAdapter);
 
         return view;
     }
 
     private boolean shouldBeInverted() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        boolean isChecked = sharedPreferences.getBoolean(DSDataDisplay.BIT_CHECK_BOX_STATE, false);
-        return isChecked;
+        return sharedPreferences.getBoolean(DSDataDisplay.BIT_CHECK_BOX_STATE, false);
     }
 
 }
