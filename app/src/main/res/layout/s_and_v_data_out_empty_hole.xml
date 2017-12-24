@@ -5,8 +5,8 @@
     android:background="@color/colorBackground"
     android:layout_gravity="center">
 
-    <ListView
-        android:id="@+id/listView_results_hole"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recView_results_hole"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/paddingAround"/>
