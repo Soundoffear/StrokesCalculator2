@@ -19,10 +19,6 @@ import com.oilfieldapps.allspark.strokescalculator.R;
 
 import java.text.DecimalFormat;
 
-/**
- * Created by Allspark on 04/07/2017.
- */
-
 public class TriplexPump extends Fragment {
 
     EditText liner_input;
@@ -48,20 +44,20 @@ public class TriplexPump extends Fragment {
 
         converter = new Converter();
 
-        liner_input = (EditText) triplexView.findViewById(R.id.triplex_liner_diameter_input);
-        stroke_input = (EditText) triplexView.findViewById(R.id.triplex_stroke_length_input);
-        efficiency_input = (EditText) triplexView.findViewById(R.id.triplex_efficiency_input);
+        liner_input = triplexView.findViewById(R.id.triplex_liner_diameter_input);
+        stroke_input = triplexView.findViewById(R.id.triplex_stroke_length_input);
+        efficiency_input = triplexView.findViewById(R.id.triplex_efficiency_input);
 
-        pump_output_result = (TextView) triplexView.findViewById(R.id.triplex_pump_output_result);
+        pump_output_result = triplexView.findViewById(R.id.triplex_pump_output_result);
 
-        liner_unit = (TextView) triplexView.findViewById(R.id.triplex_liner_diameter_unit);
-        stroke_unit = (TextView) triplexView.findViewById(R.id.triplex_stroke_length_unit);
-        output_unit = (TextView) triplexView.findViewById(R.id.triplex_pump_output_unit);
+        liner_unit = triplexView.findViewById(R.id.triplex_liner_diameter_unit);
+        stroke_unit = triplexView.findViewById(R.id.triplex_stroke_length_unit);
+        output_unit = triplexView.findViewById(R.id.triplex_pump_output_unit);
 
         SetUnit();
 
-        clear_data = (Button) triplexView.findViewById(R.id.triplex_clear_data);
-        calculate_data = (Button) triplexView.findViewById(R.id.triplex_calculate_data);
+        clear_data = triplexView.findViewById(R.id.triplex_clear_data);
+        calculate_data = triplexView.findViewById(R.id.triplex_calculate_data);
 
         calculate_data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,13 +68,13 @@ public class TriplexPump extends Fragment {
                     String outputUnit = output_unit.getText().toString();
 
                     double liner_diameter = Double.parseDouble(liner_input.getText().toString());
-                    liner_diameter = converter.diameterConverter(diameterUnit, "in", liner_diameter);
+                    liner_diameter = Converter.diameterConverter(diameterUnit, "in", liner_diameter);
                     double stroke_length = Double.parseDouble(stroke_input.getText().toString());
-                    stroke_length = converter.lengthConverter(lengthUnit, "in", stroke_length);
+                    stroke_length = Converter.lengthConverter(lengthUnit, "in", stroke_length);
                     double efficiency = Double.parseDouble(efficiency_input.getText().toString()) / 100;
                     Log.d("Values calculated: ", String.valueOf(liner_diameter) + " _ " + String.valueOf(stroke_length));
                     double pump_output_calculated = TRIPLEX_CONSTANT * Math.pow(liner_diameter, 2) * stroke_length * efficiency;
-                    pump_output_calculated = converter.outputConverter("bbl/stk", outputUnit, pump_output_calculated);
+                    pump_output_calculated = Converter.outputConverter("bbl/stk", outputUnit, pump_output_calculated);
 
                     pump_output_result.setText(new DecimalFormat("0.00000").format(RoundToFiveDecimals(pump_output_calculated)));
 
@@ -110,8 +106,7 @@ public class TriplexPump extends Fragment {
     double RoundToFiveDecimals(double value) {
         double tempValue = value * 1000000;
         tempValue = Math.round(tempValue);
-        double finalRounded = tempValue / 1000000;
-        return finalRounded;
+        return tempValue / 1000000;
     }
 
     void SetUnit() {

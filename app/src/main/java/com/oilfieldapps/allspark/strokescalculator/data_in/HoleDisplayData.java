@@ -29,10 +29,6 @@ import com.oilfieldapps.allspark.strokescalculator.data_and_databases.HoleData_D
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Allspark on 31/08/2017.
- */
-
 public class HoleDisplayData extends Fragment {
 
     public HoleDisplayData() {
@@ -127,6 +123,7 @@ public class HoleDisplayData extends Fragment {
 
     private void CreatePopUp() {
         LayoutInflater inflater = (LayoutInflater) tContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
         View popUpView = inflater.inflate(R.layout.popup_window_layout_hole, null);
 
         tPopUpWindow = new PopupWindow(popUpView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -201,6 +198,7 @@ public class HoleDisplayData extends Fragment {
     }
     private void UpdateData(final String name, final int i, String[] oldData) {
         LayoutInflater inflater = (LayoutInflater) tContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
         View popUpView = inflater.inflate(R.layout.popup_window_layout_hole_update, null);
 
         tPopUpWindow = new PopupWindow(popUpView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

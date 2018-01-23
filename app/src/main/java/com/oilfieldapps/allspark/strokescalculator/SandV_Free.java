@@ -28,14 +28,8 @@ import com.oilfieldapps.allspark.strokescalculator.data_in.DSDataDisplay;
 import com.oilfieldapps.allspark.strokescalculator.data_in.HoleDisplayData;
 import com.oilfieldapps.allspark.strokescalculator.menus.SNV_Menu;
 
-/**
- * Created by Allspark on 16/07/2017.
- */
-
 public class SandV_Free extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
     private ViewPager viewPager;
     private HoleData_DataBase holeData_dataBase;
     private EditText pump_output_input;
@@ -45,9 +39,6 @@ public class SandV_Free extends AppCompatActivity {
     DSDataDisplay dsDataDisplay;
 
     private Annulus_DataBase annulus_dataBase;
-
-    private Button calculateBTN;
-    private Button deleteBTN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +58,12 @@ public class SandV_Free extends AppCompatActivity {
             pump_output_input.setText(pumpOutput);
         }
 
-        toolbar = findViewById(R.id.snv_toolbar);
-        tabLayout = findViewById(R.id.tabLayout_dataInput);
+        Toolbar toolbar = findViewById(R.id.snv_toolbar);
+        TabLayout tabLayout = findViewById(R.id.tabLayout_dataInput);
         viewPager = findViewById(R.id.viewPager_dataInput);
 
-        calculateBTN = findViewById(R.id.snv_calculate);
-        deleteBTN = findViewById(R.id.del_all);
+        Button calculateBTN = findViewById(R.id.snv_calculate);
+        Button deleteBTN = findViewById(R.id.del_all);
 
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
 
@@ -80,6 +71,7 @@ public class SandV_Free extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Strokes and Volume");
 
@@ -135,8 +127,7 @@ public class SandV_Free extends AppCompatActivity {
 
     public Fragment getFragmentAtPos(ViewPager container, int position) {
         String tag_name = makeFragmentTagName(container.getId(), position);
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag_name);
-        return fragment;
+        return getSupportFragmentManager().findFragmentByTag(tag_name);
     }
 
     private String makeFragmentTagName (int viewId, int index) {
@@ -161,7 +152,7 @@ public class SandV_Free extends AppCompatActivity {
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        ViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

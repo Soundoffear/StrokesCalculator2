@@ -9,10 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Allspark on 10/09/2017.
- */
-
 public class Annulus_Results_DataBase extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 1;
@@ -30,7 +26,12 @@ public class Annulus_Results_DataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" + KEY_ID + " INTEGER PRIMARY KEY, " + DS_PART_NAME + " TEXT, " + DS_VOLUME + " TEXT, " + DS_STROKES + " TEXT, " + DS_VOL_UNITS + " TEXT)";
+        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME +
+                "(" + KEY_ID + " INTEGER PRIMARY KEY, "
+                + DS_PART_NAME + " TEXT, "
+                + DS_VOLUME + " TEXT, "
+                + DS_STROKES + " TEXT, "
+                + DS_VOL_UNITS + " TEXT)";
         db.execSQL(CREATE_TABLE);
     }
 

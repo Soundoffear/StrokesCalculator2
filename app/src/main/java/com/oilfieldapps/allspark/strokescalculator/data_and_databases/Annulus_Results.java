@@ -1,8 +1,5 @@
 package com.oilfieldapps.allspark.strokescalculator.data_and_databases;
 
-/**
- * Created by Allspark on 10/09/2017.
- */
 
 public class Annulus_Results {
 
@@ -11,7 +8,7 @@ public class Annulus_Results {
     private String ds_part_strokes;
     private String ds_part_volume_units;
 
-    public Annulus_Results() {
+    Annulus_Results() {
 
     }
 
@@ -38,19 +35,19 @@ public class Annulus_Results {
         return ds_part_volume_units;
     }
 
-    public void setDs_part_name(String ds_part_name) {
+    void setDs_part_name(String ds_part_name) {
         this.ds_part_name = ds_part_name;
     }
 
-    public void setDs_part_volume(String ds_part_volume) {
+    void setDs_part_volume(String ds_part_volume) {
         this.ds_part_volume = ds_part_volume;
     }
 
-    public void setDs_part_strokes(String ds_part_strokes) {
+    void setDs_part_strokes(String ds_part_strokes) {
         this.ds_part_strokes = ds_part_strokes;
     }
 
-    public void setDs_part_volume_units(String ds_part_volume_units) {
+    void setDs_part_volume_units(String ds_part_volume_units) {
         this.ds_part_volume_units = ds_part_volume_units;
     }
 }

@@ -9,10 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Allspark on 05/09/2017.
- */
-
 public class Annulus_DataBase extends SQLiteOpenHelper {
 
     private static final int DS_DB_VERSION = 1;

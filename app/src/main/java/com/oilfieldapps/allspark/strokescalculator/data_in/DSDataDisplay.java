@@ -30,19 +30,13 @@ import com.oilfieldapps.allspark.strokescalculator.custom_adapters.Annulus_data_
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_Data;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_DataBase;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Allspark on 31/08/2017.
- */
 
 public class DSDataDisplay extends Fragment {
 
     public ListView ds_listView;
-    private FloatingActionButton ds_add_fab;
     public Annulus_data_adapter annulus_data_adapter;
     public List<Annulus_Data> annulusDataList;
     private ConstraintLayout constraintLayout;
@@ -64,7 +58,7 @@ public class DSDataDisplay extends Fragment {
         View view = inflater.inflate(R.layout.ds_data, container, false);
 
         ds_listView = view.findViewById(R.id.listView_dsData);
-        ds_add_fab = view.findViewById(R.id.dsData_input_fab);
+        FloatingActionButton ds_add_fab = view.findViewById(R.id.dsData_input_fab);
         constraintLayout = view.findViewById(R.id.ds_const_layout);
         fromBit_CheckBox = view.findViewById(R.id.cb_startInputFromBit);
         annulus_dataBase = new Annulus_DataBase(getContext());
@@ -77,14 +71,14 @@ public class DSDataDisplay extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 saveCheckBoxState(isChecked);
-                if(isChecked) {
-                        List<Annulus_Data> invertedAnnulusData = new ArrayList<>();
-                        for(int i = (annulusDataList.size() - 1); i >= 0; i--) {
-                            invertedAnnulusData.add(annulusDataList.get(i));
-                        }
-                        annulusDataList = invertedAnnulusData;
-                        annulus_data_adapter = new Annulus_data_adapter(getContext(), annulusDataList);
-                        ds_listView.setAdapter(annulus_data_adapter);
+                if (isChecked) {
+                    List<Annulus_Data> invertedAnnulusData = new ArrayList<>();
+                    for (int i = (annulusDataList.size() - 1); i >= 0; i--) {
+                        invertedAnnulusData.add(annulusDataList.get(i));
+                    }
+                    annulusDataList = invertedAnnulusData;
+                    annulus_data_adapter = new Annulus_data_adapter(getContext(), annulusDataList);
+                    ds_listView.setAdapter(annulus_data_adapter);
                 } else {
                     annulusDataList = new ArrayList<>();
                     annulusDataList = annulus_dataBase.getAllItems();
@@ -94,9 +88,9 @@ public class DSDataDisplay extends Fragment {
             }
         });
 
-        if(fromBit_CheckBox.isChecked()) {
+        if (fromBit_CheckBox.isChecked()) {
             List<Annulus_Data> invertedAnnulusData = new ArrayList<>();
-            for(int i = (annulusDataList.size() - 1); i >= 0; i--) {
+            for (int i = (annulusDataList.size() - 1); i >= 0; i--) {
                 invertedAnnulusData.add(annulusDataList.get(i));
             }
             annulusDataList = invertedAnnulusData;
@@ -180,6 +174,7 @@ public class DSDataDisplay extends Fragment {
         //TODO Add option 'calculate remaining Drill String length' to force calculation to bottom
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert inflater != null;
         View popUpView = inflater.inflate(R.layout.popup_window_drill_string_add_new, null);
 
         ds_popupWindow = new PopupWindow(popUpView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -232,7 +227,7 @@ public class DSDataDisplay extends Fragment {
 
                     annulusData = new Annulus_Data(name, id, od, length, diameter_chosen_units, length_chosen_units);
                     annulus_dataBase.addItemIntoDS_DB(annulusData);
-                    if(!fromBit_CheckBox.isChecked()) {
+                    if (!fromBit_CheckBox.isChecked()) {
                         annulusDataList.add(annulusData);
                     } else {
                         annulusDataList.add(0, annulusData);
@@ -260,6 +255,7 @@ public class DSDataDisplay extends Fragment {
     public void UpdateData_PopUp(final int i, final String nameString, String[] oldData) {
 
         LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        assert layoutInflater != null;
         View updatePopUp = layoutInflater.inflate(R.layout.popup_window_drill_string_update_existing, null);
 
         ds_popupWindow = new PopupWindow(updatePopUp, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

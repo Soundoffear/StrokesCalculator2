@@ -20,10 +20,6 @@ import com.oilfieldapps.allspark.strokescalculator.menus.PumpOutputMenu;
 import com.oilfieldapps.allspark.strokescalculator.pump_output.DuplexPump;
 import com.oilfieldapps.allspark.strokescalculator.pump_output.TriplexPump;
 
-/**
- * Created by Allspark on 04/07/2017.
- */
-
 public class PumpOutput extends AppCompatActivity {
 
     Toolbar pump_output_toolbar;
@@ -31,25 +27,23 @@ public class PumpOutput extends AppCompatActivity {
     ViewPager pump_output_viewPager;
     OutputPageAdapter outputPageAdapter;
 
-    private AdView adView;
-    private AdRequest adRequest;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pump_output_main);
 
-        adView = (AdView) findViewById(R.id.po_adView);
-        adRequest = new AdRequest.Builder().build();
+        AdView adView = findViewById(R.id.po_adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        pump_output_toolbar = (Toolbar) findViewById(R.id.pump_output_toolbar);
-        pump_output_tabLayout = (TabLayout) findViewById(R.id.pump_output_tabLayout);
-        pump_output_viewPager = (ViewPager) findViewById(R.id.pump_output_viewPager);
+        pump_output_toolbar = findViewById(R.id.pump_output_toolbar);
+        pump_output_tabLayout = findViewById(R.id.pump_output_tabLayout);
+        pump_output_viewPager = findViewById(R.id.pump_output_viewPager);
         outputPageAdapter = new OutputPageAdapter(getSupportFragmentManager());
 
         setSupportActionBar(pump_output_toolbar);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Pump Output");
         pump_output_toolbar.setTitleTextColor(getResources().getColor(R.color.textColor));
@@ -60,7 +54,7 @@ public class PumpOutput extends AppCompatActivity {
 
     private class OutputPageAdapter extends FragmentPagerAdapter {
 
-        public OutputPageAdapter(FragmentManager fm) {
+        OutputPageAdapter(FragmentManager fm) {
             super(fm);
         }
 

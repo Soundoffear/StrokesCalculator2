@@ -17,17 +17,11 @@ import android.widget.TextView;
 import com.oilfieldapps.allspark.strokescalculator.R;
 import com.oilfieldapps.allspark.strokescalculator.converters.Converter;
 
-/**
- * Created by Allspark on 18/09/2017.
- */
-
 public class HorizontalCyrindricalTanks extends Fragment {
 
     Converter converter;
     //input data
     private EditText diameter_et, length_et, fluid_level_et;
-
-    private Button calculate_btn, clear_btn;
 
     //units
     private TextView diameter_units_tv, length_units_tv, fluid_level_units_tv;
@@ -44,21 +38,21 @@ public class HorizontalCyrindricalTanks extends Fragment {
 
         converter = new Converter();
 
-        diameter_et = (EditText) layoutView.findViewById(R.id.tank_vol_hc_diameter_input);
-        length_et = (EditText) layoutView.findViewById(R.id.tank_vol_hc_length_input);
-        fluid_level_et = (EditText) layoutView.findViewById(R.id.tank_vol_hc_fluid_level_input);
+        diameter_et = layoutView.findViewById(R.id.tank_vol_hc_diameter_input);
+        length_et = layoutView.findViewById(R.id.tank_vol_hc_length_input);
+        fluid_level_et = layoutView.findViewById(R.id.tank_vol_hc_fluid_level_input);
 
-        total_vol_results_tv = (TextView) layoutView.findViewById(R.id.tank_vol_hc_total_volume_result);
-        fluid_vol_results_tv = (TextView) layoutView.findViewById(R.id.tank_vol_hc_fluid_volume_result);
+        total_vol_results_tv = layoutView.findViewById(R.id.tank_vol_hc_total_volume_result);
+        fluid_vol_results_tv = layoutView.findViewById(R.id.tank_vol_hc_fluid_volume_result);
 
-        calculate_btn = (Button) layoutView.findViewById(R.id.tank_volume_hc_calculate);
-        clear_btn = (Button) layoutView.findViewById(R.id.tank_volume_hc_clear);
+        Button calculate_btn = layoutView.findViewById(R.id.tank_volume_hc_calculate);
+        Button clear_btn = layoutView.findViewById(R.id.tank_volume_hc_clear);
 
-        diameter_units_tv = (TextView) layoutView.findViewById(R.id.tank_vol_hc_diameter_units);
-        length_units_tv = (TextView) layoutView.findViewById(R.id.tank_vol_hc_length_units);
-        fluid_level_units_tv = (TextView) layoutView.findViewById(R.id.tank_vol_hc_fluid_level_units);
-        total_volume_units_tv = (TextView) layoutView.findViewById(R.id.tank_vol_hc_total_volume_result_units);
-        fluid_volume_units_tv = (TextView) layoutView.findViewById(R.id.tank_vol_hc_fluid_volume_result_units);
+        diameter_units_tv = layoutView.findViewById(R.id.tank_vol_hc_diameter_units);
+        length_units_tv = layoutView.findViewById(R.id.tank_vol_hc_length_units);
+        fluid_level_units_tv = layoutView.findViewById(R.id.tank_vol_hc_fluid_level_units);
+        total_volume_units_tv = layoutView.findViewById(R.id.tank_vol_hc_total_volume_result_units);
+        fluid_volume_units_tv = layoutView.findViewById(R.id.tank_vol_hc_fluid_volume_result_units);
 
         SetAllUnits();
 
@@ -67,14 +61,14 @@ public class HorizontalCyrindricalTanks extends Fragment {
             public void onClick(View v) {
                 try {
                     double diameter = Double.parseDouble(diameter_et.getText().toString());
-                    diameter = converter.diameterConverter(diameter_units_tv.getText().toString(), getResources().getString(R.string.in), diameter);
+                    diameter = Converter.diameterConverter(diameter_units_tv.getText().toString(), getResources().getString(R.string.in), diameter);
                     double length = Double.parseDouble(length_et.getText().toString());
-                    length = converter.diameterConverter(length_units_tv.getText().toString(), getResources().getString(R.string.in), length);
+                    length = Converter.diameterConverter(length_units_tv.getText().toString(), getResources().getString(R.string.in), length);
                     double fluid_level = Double.parseDouble(fluid_level_et.getText().toString());
-                    fluid_level = converter.diameterConverter(fluid_level_units_tv.getText().toString(), getResources().getString(R.string.in), fluid_level);
+                    fluid_level = Converter.diameterConverter(fluid_level_units_tv.getText().toString(), getResources().getString(R.string.in), fluid_level);
 
                     double total_tank_volume = Math.pow(diameter, 2) / 4 * Math.PI * length;
-                    total_tank_volume = converter.VolumeConverter("in3", total_volume_units_tv.getText().toString(), total_tank_volume);
+                    total_tank_volume = Converter.VolumeConverter("in3", total_volume_units_tv.getText().toString(), total_tank_volume);
 
                     total_vol_results_tv.setText(String.valueOf(RoundToTwoDec(total_tank_volume)));
 
@@ -82,7 +76,7 @@ public class HorizontalCyrindricalTanks extends Fragment {
                     double arccos = (Math.acos((radius - fluid_level) / radius));
 
                     double fluidVolume = length * (Math.pow(radius, 2) * arccos - (radius - fluid_level) * Math.sqrt(2 * radius * fluid_level - Math.pow(fluid_level, 2)));
-                    fluidVolume = converter.VolumeConverter("in3", fluid_volume_units_tv.getText().toString(), fluidVolume);
+                    fluidVolume = Converter.VolumeConverter("in3", fluid_volume_units_tv.getText().toString(), fluidVolume);
                     Log.d("FLUID Vol: ", String.valueOf(fluidVolume) + " " + radius);
 
                     fluid_vol_results_tv.setText(String.valueOf(RoundToTwoDec(fluidVolume)));

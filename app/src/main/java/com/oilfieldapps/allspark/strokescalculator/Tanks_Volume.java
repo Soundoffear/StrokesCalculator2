@@ -21,34 +21,24 @@ import com.oilfieldapps.allspark.strokescalculator.tanks_volume.HorizontalCyrind
 import com.oilfieldapps.allspark.strokescalculator.tanks_volume.RectangularTanks;
 import com.oilfieldapps.allspark.strokescalculator.tanks_volume.VerticalCylindricalTank;
 
-/**
- * Created by Allspark on 18/09/2017.
- */
-
 public class Tanks_Volume extends AppCompatActivity {
-
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
-    private AdView adView;
-    private AdRequest adRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tanks_volume_main);
 
-        adView = findViewById(R.id.tanks_vol_adView);
-        adRequest = new AdRequest.Builder().build();
+        AdView adView = findViewById(R.id.tanks_vol_adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
-        toolbar = findViewById(R.id.tanks_volume_toolbar);
-        tabLayout = findViewById(R.id.tanks_volume_tabLayout);
-        viewPager = findViewById(R.id.tanks_volume_view_pager);
+        Toolbar toolbar = findViewById(R.id.tanks_volume_toolbar);
+        TabLayout tabLayout = findViewById(R.id.tanks_volume_tabLayout);
+        ViewPager viewPager = findViewById(R.id.tanks_volume_view_pager);
 
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Tanks Volume");
 
@@ -76,7 +66,7 @@ public class Tanks_Volume extends AppCompatActivity {
 
     private class ViewPagerAdapterTanks extends FragmentPagerAdapter {
 
-        public ViewPagerAdapterTanks(FragmentManager fm) {
+        ViewPagerAdapterTanks(FragmentManager fm) {
             super(fm);
         }
 

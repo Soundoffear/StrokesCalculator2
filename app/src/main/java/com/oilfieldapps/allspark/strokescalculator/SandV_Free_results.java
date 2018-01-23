@@ -17,16 +17,11 @@ import com.oilfieldapps.allspark.strokescalculator.data_out.SNV_Results_DrillStr
 import com.oilfieldapps.allspark.strokescalculator.data_out.SNV_Results_EmptyHole;
 import com.oilfieldapps.allspark.strokescalculator.data_out.SNV_Results_Annulus;
 
-/**
- * Created by Allspark on 16/07/2017.
- */
-
 public class SandV_Free_results extends AppCompatActivity {
 
     Toolbar snv_results_toolbar;
     ViewPager snv_results_viewPager;
     TabLayout snv_results_tabLayout;
-    private AdView adView;
 
     public static String pump_output;
 
@@ -36,7 +31,7 @@ public class SandV_Free_results extends AppCompatActivity {
 
         setContentView(R.layout.s_and_v_results_main_layout);
 
-        adView = findViewById(R.id.testAdd);
+        AdView adView = findViewById(R.id.testAdd);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
@@ -52,6 +47,7 @@ public class SandV_Free_results extends AppCompatActivity {
         snv_results_toolbar = findViewById(R.id.snv_results_toolbar);
         setSupportActionBar(snv_results_toolbar);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Results");
 
@@ -59,7 +55,7 @@ public class SandV_Free_results extends AppCompatActivity {
 
     private class ResultsPageViewerAdapter extends FragmentPagerAdapter {
 
-        public ResultsPageViewerAdapter(FragmentManager fm) {
+        ResultsPageViewerAdapter(FragmentManager fm) {
             super(fm);
         }
 

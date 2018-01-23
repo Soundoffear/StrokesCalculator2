@@ -20,15 +20,7 @@ import android.widget.TextView;
 import com.oilfieldapps.allspark.strokescalculator.converters.Converter;
 import com.oilfieldapps.allspark.strokescalculator.menus.AV_Menu;
 
-/**
- * Created by Allspark on 17/09/2017.
- */
-
 public class AnnularVelocity extends AppCompatActivity {
-
-    private Converter converter;
-
-    private Toolbar av_toolbar;
 
     private EditText et_pumpOutput, et_spm, et_id, et_od;
 
@@ -38,47 +30,43 @@ public class AnnularVelocity extends AppCompatActivity {
 
     private String u_pumpOutput, u_dia, u_av;
 
-    private Button calculate_BTN, clear_BTN;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.av_main);
 
-        converter = new Converter();
-
-        av_toolbar = (Toolbar) findViewById(R.id.av_toolbar);
+        Toolbar av_toolbar = findViewById(R.id.av_toolbar);
 
         setSupportActionBar(av_toolbar);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getResources().getString(R.string.annular_velocity));
 
-        et_pumpOutput = (EditText) findViewById(R.id.av_et_pump_output_input);
-        et_spm = (EditText) findViewById(R.id.av_et_spm_input);
-        et_id = (EditText) findViewById(R.id.av_et_id_input);
-        et_od = (EditText) findViewById(R.id.av_et_od_input);
+        et_pumpOutput = findViewById(R.id.av_et_pump_output_input);
+        et_spm = findViewById(R.id.av_et_spm_input);
+        et_id = findViewById(R.id.av_et_id_input);
+        et_od = findViewById(R.id.av_et_od_input);
 
-        units_pumpOutput = (TextView) findViewById(R.id.av_et_pump_output_unit);
-        units_id = (TextView) findViewById(R.id.av_et_id_unit);
-        units_od = (TextView) findViewById(R.id.av_et_od_unit);
-        units_result = (TextView) findViewById(R.id.av_ann_vel_results_units);
+        units_pumpOutput = findViewById(R.id.av_et_pump_output_unit);
+        units_id = findViewById(R.id.av_et_id_unit);
+        units_od = findViewById(R.id.av_et_od_unit);
+        units_result = findViewById(R.id.av_ann_vel_results_units);
 
         SetAllUnits();
 
-        tv_av_result = (TextView) findViewById(R.id.av_ann_vel_results);
+        tv_av_result = findViewById(R.id.av_ann_vel_results);
 
-        calculate_BTN = (Button) findViewById(R.id.av_calculate);
-        clear_BTN = (Button) findViewById(R.id.av_calculate);
+        Button calculate_BTN = findViewById(R.id.av_calculate);
+        Button clear_BTN = findViewById(R.id.av_clear_data);
 
         clear_BTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String zero = getResources().getString(R.string.zero);
-                et_pumpOutput.setText(zero);
-                et_spm.setText(zero);
-                et_id.setText(zero);
-                et_od.setText(zero);
+                et_pumpOutput.setText(getResources().getString(R.string.zero));
+                et_spm.setText(getResources().getString(R.string.zero));
+                et_id.setText(getResources().getString(R.string.zero));
+                et_od.setText(getResources().getString(R.string.zero));
             }
         });
 
@@ -91,16 +79,16 @@ public class AnnularVelocity extends AppCompatActivity {
                     double id = Double.parseDouble(et_id.getText().toString());
                     double od = Double.parseDouble(et_od.getText().toString());
 
-                    pumpOutput = converter.outputConverter(u_pumpOutput, getResources().getString(R.string.bbl_stk), pumpOutput);
-                    id = converter.diameterConverter(u_dia, getResources().getString(R.string.in), id);
-                    od = converter.diameterConverter(u_dia, getResources().getString(R.string.in), od);
+                    pumpOutput = Converter.outputConverter(u_pumpOutput, getResources().getString(R.string.bbl_stk), pumpOutput);
+                    id = Converter.diameterConverter(u_dia, getResources().getString(R.string.in), id);
+                    od = Converter.diameterConverter(u_dia, getResources().getString(R.string.in), od);
 
                     double pumpOutput_in_volPerTime = pumpOutput * spm;
                     double annular_vol_per_length = 1029.4 / (Math.pow(id, 2) - Math.pow(od, 2));
 
                     double annular_velocity = pumpOutput_in_volPerTime * annular_vol_per_length;
 
-                    annular_velocity = converter.annularVelocityConverter(getResources().getString(R.string.ft_min), u_av, annular_velocity);
+                    annular_velocity = Converter.annularVelocityConverter(getResources().getString(R.string.ft_min), u_av, annular_velocity);
 
                     annular_velocity = RoundUpToTwoDec(annular_velocity);
 

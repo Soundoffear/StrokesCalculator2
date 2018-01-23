@@ -1,9 +1,11 @@
 package com.oilfieldapps.allspark.strokescalculator.tanks_volume;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +16,13 @@ import android.widget.TextView;
 import com.oilfieldapps.allspark.strokescalculator.R;
 import com.oilfieldapps.allspark.strokescalculator.converters.Converter;
 
-/**
- * Created by Allspark on 18/09/2017.
- */
-
 public class VerticalCylindricalTank extends Fragment {
-
-    private Converter converter;
 
     // data in
     private EditText et_diameter, et_height, et_fluid_level;
 
     // data out
     private TextView tv_total_volume, tv_fluid_volume;
-
-    private Button calculate, clear;
 
     // units
     private TextView diameter_units, height_units, fluid_level_units, total_volume_units, fluid_volume_units;
@@ -38,47 +32,59 @@ public class VerticalCylindricalTank extends Fragment {
 
         View layoutView = inflater.inflate(R.layout.tanks_volume_ver_cylindrical_tank, null);
 
-        converter = new Converter();
+        et_diameter = layoutView.findViewById(R.id.tank_vol_vc_diameter_input);
+        et_height = layoutView.findViewById(R.id.tank_vol_vc_length_input);
+        et_fluid_level = layoutView.findViewById(R.id.tank_vol_vc_fluid_level_input);
 
-        et_diameter = (EditText) layoutView.findViewById(R.id.tank_vol_vc_diameter_input);
-        et_height = (EditText) layoutView.findViewById(R.id.tank_vol_vc_length_input);
-        et_fluid_level = (EditText) layoutView.findViewById(R.id.tank_vol_vc_fluid_level_input);
+        Button calculate = layoutView.findViewById(R.id.tank_volume_vc_calculate);
+        Button clear = layoutView.findViewById(R.id.tank_volume_vc_clear);
 
-        calculate = (Button) layoutView.findViewById(R.id.tank_volume_vc_calculate);
-        clear = (Button) layoutView.findViewById(R.id.tank_volume_vc_clear);
+        tv_total_volume = layoutView.findViewById(R.id.tank_vol_vc_total_volume_result);
+        tv_fluid_volume = layoutView.findViewById(R.id.tank_vol_vc_fluid_volume_result);
 
-        tv_total_volume = (TextView) layoutView.findViewById(R.id.tank_vol_vc_total_volume_result);
-        tv_fluid_volume = (TextView) layoutView.findViewById(R.id.tank_vol_vc_fluid_volume_result);
-
-        diameter_units = (TextView) layoutView.findViewById(R.id.tank_vol_vc_diameter_units);
-        height_units = (TextView) layoutView.findViewById(R.id.tank_vol_vc_length_units);
-        fluid_level_units = (TextView) layoutView.findViewById(R.id.tank_vol_vc_fluid_level_units);
-        total_volume_units = (TextView) layoutView.findViewById(R.id.tank_vol_vc_total_volume_result_units);
-        fluid_volume_units = (TextView) layoutView.findViewById(R.id.tank_vol_vc_fluid_volume_result_units);
+        diameter_units = layoutView.findViewById(R.id.tank_vol_vc_diameter_units);
+        height_units = layoutView.findViewById(R.id.tank_vol_vc_length_units);
+        fluid_level_units = layoutView.findViewById(R.id.tank_vol_vc_fluid_level_units);
+        total_volume_units = layoutView.findViewById(R.id.tank_vol_vc_total_volume_result_units);
+        fluid_volume_units = layoutView.findViewById(R.id.tank_vol_vc_fluid_volume_result_units);
 
         SetAllUnits();
 
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double diameter = Double.parseDouble(et_diameter.getText().toString());
-                diameter = converter.diameterConverter(diameter_units.getText().toString(), getResources().getString(R.string.in), diameter);
-                double height = Double.parseDouble(et_height.getText().toString());
-                height = converter.diameterConverter(height_units.getText().toString(), getResources().getString(R.string.in), height);
-                double fluid_level = Double.parseDouble(et_fluid_level.getText().toString());
-                fluid_level = converter.diameterConverter(fluid_level_units.getText().toString(), getResources().getString(R.string.in), fluid_level);
+                try {
+                    double diameter = Double.parseDouble(et_diameter.getText().toString());
+                    diameter = Converter.diameterConverter(diameter_units.getText().toString(), getResources().getString(R.string.in), diameter);
+                    double height = Double.parseDouble(et_height.getText().toString());
+                    height = Converter.diameterConverter(height_units.getText().toString(), getResources().getString(R.string.in), height);
+                    double fluid_level = Double.parseDouble(et_fluid_level.getText().toString());
+                    fluid_level = Converter.diameterConverter(fluid_level_units.getText().toString(), getResources().getString(R.string.in), fluid_level);
 
-                // !!! need to convert from in3 to bbl or to m3 - depending what are final results units
-                double totalVolume = Math.PI * Math.pow(diameter, 2) / 4 * height;
-                totalVolume = converter.VolumeConverter("in3", total_volume_units.getText().toString(), totalVolume);
-                double fluidVolume = Math.PI * Math.pow(diameter, 2) / 4 * fluid_level;
-                fluidVolume = converter.VolumeConverter("in3", fluid_level_units.getText().toString(), fluidVolume);
+                    // !!! need to convert from in3 to bbl or to m3 - depending what are final results units
+                    double totalVolume = Math.PI * Math.pow(diameter, 2) / 4 * height;
+                    totalVolume = Converter.VolumeConverter("in3", total_volume_units.getText().toString(), totalVolume);
+                    double fluidVolume = Math.PI * Math.pow(diameter, 2) / 4 * fluid_level;
+                    fluidVolume = Converter.VolumeConverter("in3", fluid_level_units.getText().toString(), fluidVolume);
 
-                String totalVolumeString = String.valueOf(RoundToTwoDec(totalVolume));
-                String fluidVolumeString = String.valueOf(RoundToTwoDec(fluidVolume));
+                    String totalVolumeString = String.valueOf(RoundToTwoDec(totalVolume));
+                    String fluidVolumeString = String.valueOf(RoundToTwoDec(fluidVolume));
 
-                tv_total_volume.setText(totalVolumeString);
-                tv_fluid_volume.setText(fluidVolumeString);
+                    tv_total_volume.setText(totalVolumeString);
+                    tv_fluid_volume.setText(fluidVolumeString);
+                } catch (Exception e) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Warning");
+                    builder.setMessage("Please check if all the field contains numbers");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
 
             }
         });
