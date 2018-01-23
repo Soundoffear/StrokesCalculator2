@@ -15,10 +15,6 @@ import com.oilfieldapps.allspark.strokescalculator.R;
 
 import java.text.DecimalFormat;
 
-/**
- * Created by Allspark on 04/07/2017.
- */
-
 public class DuplexPump extends Fragment {
 
     EditText input_liner_dia;
@@ -43,24 +39,26 @@ public class DuplexPump extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View duplexView = inflater.inflate(R.layout.pump_output_duplex_layout, container, false);
 
-        input_liner_dia = (EditText) duplexView.findViewById(R.id.duplex_liner_diameter_input);
-        input_stroke_length = (EditText) duplexView.findViewById(R.id.duplex_stroke_length_input);
-        input_rod_dia = (EditText) duplexView.findViewById(R.id.duplex_rod_diameter_input);
-        input_efficiency = (EditText) duplexView.findViewById(R.id.duplex_efficiency_input);
+        input_liner_dia = duplexView.findViewById(R.id.duplex_liner_diameter_input);
+        input_stroke_length = duplexView.findViewById(R.id.duplex_stroke_length_input);
+        input_rod_dia = duplexView.findViewById(R.id.duplex_rod_diameter_input);
+        input_efficiency = duplexView.findViewById(R.id.duplex_efficiency_input);
 
-        unit_liner_dia = (TextView) duplexView.findViewById(R.id.duplex_liner_diameter_unit);
-        unit_stroke_length = (TextView) duplexView.findViewById(R.id.duplex_stroke_length_unit);
-        unit_rod_dia = (TextView) duplexView.findViewById(R.id.duplex_rod_diameter_unit);
-        unit_pump_output = (TextView) duplexView.findViewById(R.id.duplex_pump_output_unit);
+        unit_liner_dia = duplexView.findViewById(R.id.duplex_liner_diameter_unit);
+        unit_stroke_length = duplexView.findViewById(R.id.duplex_stroke_length_unit);
+        unit_rod_dia = duplexView.findViewById(R.id.duplex_rod_diameter_unit);
+        unit_pump_output = duplexView.findViewById(R.id.duplex_pump_output_unit);
 
-        output_pump_output = (TextView) duplexView.findViewById(R.id.duplex_pump_output_value);
+        output_pump_output = duplexView.findViewById(R.id.duplex_pump_output_value);
 
-        clear_btn = (Button) duplexView.findViewById(R.id.duplex_clear_data);
-        calculate_btn = (Button) duplexView.findViewById(R.id.duplex_calc_data);
+        clear_btn = duplexView.findViewById(R.id.duplex_clear_data);
+        calculate_btn = duplexView.findViewById(R.id.duplex_calc_data);
+
 
         calculate_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 try {
                     double liner_diameter = Double.parseDouble(input_liner_dia.getText().toString());
                     double stroke_length = Double.parseDouble(input_stroke_length.getText().toString());
@@ -88,9 +86,12 @@ public class DuplexPump extends Fragment {
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                 }
+
             }
         });
 
         return duplexView;
     }
+
+
 }

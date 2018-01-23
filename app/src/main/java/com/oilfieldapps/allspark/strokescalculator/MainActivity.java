@@ -3,14 +3,13 @@ package com.oilfieldapps.allspark.strokescalculator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.google.android.gms.ads.AdRequest;
@@ -26,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton av_btn;
     ImageButton tank_button;
 
-    private AdView mAdView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
 
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -45,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         main_toolbar = findViewById(R.id.main_activity_toolbar);
         setSupportActionBar(main_toolbar);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setTitle(getString(R.string.app_name));
         main_toolbar.setTitleTextColor(getResources().getColor(R.color.textColor));
 
@@ -100,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("FIRST_RUN", false);
-                    editor.commit();
+                    editor.apply();
                     dialog.dismiss();
                 }
             });
@@ -109,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean("FIRST_RUN", true);
-                    editor.commit();
+                    editor.apply();
                     dialog.dismiss();
                 }
             });

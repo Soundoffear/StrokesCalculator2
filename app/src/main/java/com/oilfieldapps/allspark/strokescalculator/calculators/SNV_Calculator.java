@@ -23,10 +23,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Allspark on 17/07/2017.
- */
-
 public class SNV_Calculator {
 
     private static String volumeUnits;
@@ -254,6 +250,8 @@ public class SNV_Calculator {
         return dataOut;
     }
 
+    //calculating Drill String volumes and Strokes
+
     public static void calculateDrillStringData(Context context, double pump_output) {
 
         DrillString_Results drillString_results;
@@ -270,7 +268,6 @@ public class SNV_Calculator {
 
         double totalVolume = 0;
         double totalStrokes = 0;
-        //Calculate
         for(int i = 0; i < annulus_dataList.size(); i++) {
             String name = annulus_dataList.get(i).getString_name();
             String diameter_units = annulus_dataList.get(i).getDiameter_units();
