@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.oilfieldapps.allspark.strokescalculator.R;
@@ -15,14 +14,10 @@ import com.oilfieldapps.allspark.strokescalculator.interfaces.OnClickRecyclerVie
 
 import java.util.List;
 
-/**
- * Created by soundoffear on 23/01/2018.
- */
-
 public class DrillStringInputAdapter extends RecyclerView.Adapter<DrillStringInputAdapter.DrillStringInputViewHolder> {
 
     private List<Annulus_Data> annulus_data;
-    public static OnClickRecyclerViewListener recyclerViewListener;
+    private static OnClickRecyclerViewListener recyclerViewListener;
 
     public DrillStringInputAdapter(List<Annulus_Data> annulus_data, OnClickRecyclerViewListener onClickRecyclerViewListener) {
         this.annulus_data = annulus_data;

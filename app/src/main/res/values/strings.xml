@@ -101,5 +101,46 @@ yourself.\nIf you agree to above please hit okay and please rate app if you feel
 Thanks!</string>
     <string name="icon_image">icon_image</string>
     <string name="input_drill_string_from_bit">Input Drill String Parts Starting From Bit</string>
+    <string name="how_to">HOW TO</string>
+
+    <string name="how_to_text"><b>Hole Data</b> \n
+Press plus "+" sign in the right bottom corner. \n
+Inside pop-up window you will find 4 input fields: \n
+- ID (decimal value) \n
+- OD (decimal value)- can be set to 0 or left empty \n
+- Top MD - set to 0 if casing/open hole is on top otherwise you should set it starting depth of open hole/liner \n
+- End MD - should be set to setting depth of casing/liner and for open hole to current depth \n \n
+
+For Example, if 13.375 casing set depth is 1077 m and it starts from the surface: \n
+ID = 12.476 \n
+OD = 13.375 \n
+Top MD = 0 \n
+End MD = 1077 \n \n
+
+Then for open hole (12 1/4 open hole with current depth 3000 m) \n
+ID = 12.25  \n
+OD = 0 \n
+Top MD = 1077 (casing set depth) \n
+End MD = 3000  \n \n
+
+Hope this part is clear! \n \n
+         \n
+        <b>Drill String</b> \n
+IMPORTANT: Enter always the length of each drill string part, not depth it is at or calculations will be wrong. \n
+There are 2 ways of entering drill string data: \n
+1. From the surface: \n
+First, enter most top part of your drill string, normally it would get like this: Drill Pipe 1 -> Drill Pipe 2 -> Heave Weight Drill Pipe -> Drill Collars -> Bit (this is extremely simple example) \n
+To enter data you press plus "+" sign and inside pop-up window you enter: \n
+Drill string ID (decimal value) \n
+Drill string OD (decimal value) \n
+Drill string Length  \n \n
+
+2. From the Bit: (select check box in order to do so) \n
+First, enter bit and then other drill string parts as follows, for example, Bit -> Drill Collars -> Heave Weight Drill Pipe -> Drill Pipe 2 -> Drill Pipe 1 \n
+Rest stays the same. \n \n
+
+At any point, you can edit values of your drill string, change depths etc. \n
+If by any chance you want to change an order you entered drill string parts you can also do so at any time.
+</string>
 
 </resources>

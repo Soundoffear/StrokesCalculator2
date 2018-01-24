@@ -23,7 +23,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".menus.PumpOutputMenu"></activity>
+        <activity android:name=".menus.PumpOutputMenu" />
         <activity
             android:name=".SandV_Free"
             android:parentActivityName=".MainActivity">
@@ -31,31 +31,32 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
-        <activity android:name=".SandV_Free_results"
+        <activity
+            android:name=".SandV_Free_results"
             android:parentActivityName=".SandV_Free">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SandV_Free" />
         </activity>
-        <activity android:name=".menus.SNV_Menu"></activity>
-
-        <activity android:name=".AnnularVelocity"
+        <activity android:name=".menus.SNV_Menu" />
+        <activity
+            android:name=".AnnularVelocity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".menus.AV_Menu"></activity>
-
-        <activity android:name=".Tanks_Volume"
+        <activity android:name=".menus.AV_Menu" />
+        <activity
+            android:name=".Tanks_Volume"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".menus.TankVol_Menu"></activity>
+        <activity android:name=".menus.TankVol_Menu" />
+        <activity android:name=".SNV_HowToActivity"></activity>
     </application>
 
 </manifest>

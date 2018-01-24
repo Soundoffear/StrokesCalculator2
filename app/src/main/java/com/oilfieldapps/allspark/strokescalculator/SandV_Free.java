@@ -3,6 +3,7 @@ package com.oilfieldapps.allspark.strokescalculator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -141,6 +142,10 @@ public class SandV_Free extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.snv_units) {
             Intent intent = new Intent(getApplicationContext(), SNV_Menu.class);
+            startActivity(intent);
+        }
+        if(item.getItemId() == R.id.snv_how_to) {
+            Intent intent = new Intent(getApplicationContext(), SNV_HowToActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

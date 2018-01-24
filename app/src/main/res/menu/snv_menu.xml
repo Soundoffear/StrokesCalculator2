@@ -3,5 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/snv_units"
         android:title="@string/units"
-        app:showAsAction="ifRoom">Units</item>
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/snv_how_to"
+        android:title="@string/how_to"
+        app:showAsAction="ifRoom"/>
 </menu>
