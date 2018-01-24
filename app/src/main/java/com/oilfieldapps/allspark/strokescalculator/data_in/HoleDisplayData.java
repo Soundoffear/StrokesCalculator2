@@ -10,34 +10,35 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.oilfieldapps.allspark.strokescalculator.R;
-import com.oilfieldapps.allspark.strokescalculator.custom_adapters.Hole_data_adapter;
+import com.oilfieldapps.allspark.strokescalculator.custom_adapters.HoleDataInputAdapter;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.HoleData;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.HoleData_DataBase;
+import com.oilfieldapps.allspark.strokescalculator.interfaces.OnClickRecyclerViewListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HoleDisplayData extends Fragment {
+public class HoleDisplayData extends Fragment implements OnClickRecyclerViewListener {
 
     public HoleDisplayData() {
 
     }
 
     public List<HoleData> itemsData;
-    public Hole_data_adapter listAdapter;
-    public ListView dataListView;
+    public RecyclerView recViewData;
+    public HoleDataInputAdapter holeDataInputAdapter;
     public FloatingActionButton fabButton;
     public ConstraintLayout constLayout;
     private HoleData holeData;
@@ -53,16 +54,18 @@ public class HoleDisplayData extends Fragment {
 
         View view = inflater.inflate(R.layout.hole_data, container, false);
 
-        dataListView = view.findViewById(R.id.listView_holeData);
+        recViewData = view.findViewById(R.id.recView_holeData);
+        recViewData.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(container.getContext());
+        recViewData.setLayoutManager(linearLayoutManager);
         fabButton = view.findViewById(R.id.floatingActionButton_hole_data);
         constLayout = view.findViewById(R.id.hole_layout);
         holeData_dataBase = new HoleData_DataBase(getContext());
         tContext = getContext();
         itemsData = new ArrayList<>();
         itemsData = holeData_dataBase.getAllItem();
-        listAdapter = new Hole_data_adapter(getActivity(), itemsData);
-
-        dataListView.setAdapter(listAdapter);
+        holeDataInputAdapter = new HoleDataInputAdapter(itemsData, this);
+        recViewData.setAdapter(holeDataInputAdapter);
 
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,51 +73,6 @@ public class HoleDisplayData extends Fragment {
 
                 CreatePopUp();
 
-            }
-        });
-
-        dataListView.setFocusable(true);
-
-        dataListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view, final int position, long id) {
-                TextView nameTV = view.findViewById(R.id.itemNameLV);
-                TextView idTV = view.findViewById(R.id.input_ID_LV_ET);
-                TextView odTV = view.findViewById(R.id.input_OD_LV_ET);
-                TextView topMD = view.findViewById(R.id.input_top_md_TV);
-                TextView endMD = view.findViewById(R.id.input_end_md_TV);
-                final String name = nameTV.getText().toString();
-                String idString = idTV.getText().toString();
-                String odString = odTV.getText().toString();
-                String topMDString = topMD.getText().toString();
-                String endMDString = endMD.getText().toString();
-                final String[] oldDataStrings = {idString, odString, topMDString, endMDString};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("What would you like to do?");
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        UpdateData(name, position, oldDataStrings);
-                    }
-                });
-                builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        listAdapter.remove(itemsData.get(position));
-                        holeData_dataBase.removeFromDatabase(name);
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
             }
         });
 
@@ -178,7 +136,7 @@ public class HoleDisplayData extends Fragment {
                     holeData = new HoleData(string_inputName, string_inputID, string_inputOD, string_inputEndMD, string_inputTopMD, diameter_chosen_units, length_chosen_units);
                     holeData_dataBase.addItemToHoleDesign(holeData);
                     itemsData.add(holeData);
-                    dataListView.setAdapter(listAdapter);
+                    recViewData.setAdapter(holeDataInputAdapter);
                     tPopUpWindow.dismiss();
                 } catch (NumberFormatException nfe) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -263,7 +221,7 @@ public class HoleDisplayData extends Fragment {
                     itemsData.get(i).setInput_od(string_inputOD);
                     itemsData.get(i).setInput_end_md(string_inputEndMD);
                     itemsData.get(i).setInput_top_md(string_inputTopMD);
-                    dataListView.setAdapter(listAdapter);
+                    recViewData.setAdapter(holeDataInputAdapter);
                     tPopUpWindow.dismiss();
                 } catch (NumberFormatException nfe) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -295,6 +253,48 @@ public class HoleDisplayData extends Fragment {
             itemsData.get(i).setInput_diameter_unit(diameter_chosen_units);
             itemsData.get(i).setInput_length_unit(length_chosen_units);
         }
-        dataListView.setAdapter(listAdapter);
+        recViewData.setAdapter(holeDataInputAdapter);
+    }
+
+    @Override
+    public void onRecViewClickListener(View v, final int pos) {
+        TextView nameTV = v.findViewById(R.id.itemNameLV);
+        TextView idTV = v.findViewById(R.id.input_ID_LV_ET);
+        TextView odTV = v.findViewById(R.id.input_OD_LV_ET);
+        TextView topMD = v.findViewById(R.id.input_top_md_TV);
+        TextView endMD = v.findViewById(R.id.input_end_md_TV);
+        final String name = nameTV.getText().toString();
+        String idString = idTV.getText().toString();
+        String odString = odTV.getText().toString();
+        String topMDString = topMD.getText().toString();
+        String endMDString = endMD.getText().toString();
+        final String[] oldDataStrings = {idString, odString, topMDString, endMDString};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("What would you like to do?");
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                UpdateData(name, pos, oldDataStrings);
+            }
+        });
+        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                holeData_dataBase.removeFromDatabase(name);
+                itemsData.remove(pos);
+                recViewData.setAdapter(holeDataInputAdapter);
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

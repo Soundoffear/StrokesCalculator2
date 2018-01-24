@@ -10,34 +10,35 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.oilfieldapps.allspark.strokescalculator.R;
-import com.oilfieldapps.allspark.strokescalculator.custom_adapters.Annulus_data_adapter;
+import com.oilfieldapps.allspark.strokescalculator.custom_adapters.DrillStringInputAdapter;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_Data;
 import com.oilfieldapps.allspark.strokescalculator.data_and_databases.Annulus_DataBase;
+import com.oilfieldapps.allspark.strokescalculator.interfaces.OnClickRecyclerViewListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class DSDataDisplay extends Fragment {
+public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListener {
 
-    public ListView ds_listView;
-    public Annulus_data_adapter annulus_data_adapter;
+    public RecyclerView recView_dsData;
+    public DrillStringInputAdapter drillStringInputAdapter;
     public List<Annulus_Data> annulusDataList;
     private ConstraintLayout constraintLayout;
     private Annulus_DataBase annulus_dataBase;
@@ -57,7 +58,10 @@ public class DSDataDisplay extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ds_data, container, false);
 
-        ds_listView = view.findViewById(R.id.listView_dsData);
+        recView_dsData = view.findViewById(R.id.recView_dsData);
+        recView_dsData.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(container.getContext());
+        recView_dsData.setLayoutManager(linearLayoutManager);
         FloatingActionButton ds_add_fab = view.findViewById(R.id.dsData_input_fab);
         constraintLayout = view.findViewById(R.id.ds_const_layout);
         fromBit_CheckBox = view.findViewById(R.id.cb_startInputFromBit);
@@ -77,13 +81,23 @@ public class DSDataDisplay extends Fragment {
                         invertedAnnulusData.add(annulusDataList.get(i));
                     }
                     annulusDataList = invertedAnnulusData;
-                    annulus_data_adapter = new Annulus_data_adapter(getContext(), annulusDataList);
-                    ds_listView.setAdapter(annulus_data_adapter);
+                    drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList, new OnClickRecyclerViewListener() {
+                        @Override
+                        public void onRecViewClickListener(View v, int pos) {
+
+                        }
+                    });
+                    recView_dsData.setAdapter(drillStringInputAdapter);
                 } else {
                     annulusDataList = new ArrayList<>();
                     annulusDataList = annulus_dataBase.getAllItems();
-                    annulus_data_adapter = new Annulus_data_adapter(getContext(), annulusDataList);
-                    ds_listView.setAdapter(annulus_data_adapter);
+                    drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList, new OnClickRecyclerViewListener() {
+                        @Override
+                        public void onRecViewClickListener(View v, int pos) {
+
+                        }
+                    });
+                    recView_dsData.setAdapter(drillStringInputAdapter);
                 }
             }
         });
@@ -96,56 +110,13 @@ public class DSDataDisplay extends Fragment {
             annulusDataList = invertedAnnulusData;
         }
 
-        annulus_data_adapter = new Annulus_data_adapter(getContext(), annulusDataList);
-
-        ds_listView.setAdapter(annulus_data_adapter);
+        drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList, this);
+        recView_dsData.setAdapter(drillStringInputAdapter);
 
         ds_add_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CreateDS_PopUp();
-            }
-        });
-
-
-        ds_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                TextView nameTV = view.findViewById(R.id.ds_part_name);
-                TextView idTV = view.findViewById(R.id.drill_string_tv_input_ds_id);
-                TextView odTV = view.findViewById(R.id.drill_string_tv_input_ds_od);
-                TextView lengthTV = view.findViewById(R.id.drill_string_tv_input_ds_length);
-                final String name = nameTV.getText().toString();
-                String idString = idTV.getText().toString();
-                String odString = odTV.getText().toString();
-                String lengthString = lengthTV.getText().toString();
-                final String[] oldDataString = {idString, odString, lengthString};
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("What would you like to do?");
-                builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("NAME: ", name + " pos " + String.valueOf(position));
-                        UpdateData_PopUp(position, name, oldDataString);
-                    }
-                });
-                builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        annulus_data_adapter.remove(annulusDataList.get(position));
-                        annulus_dataBase.deleteFromDB(name);
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
             }
         });
 
@@ -232,7 +203,7 @@ public class DSDataDisplay extends Fragment {
                     } else {
                         annulusDataList.add(0, annulusData);
                     }
-                    ds_listView.setAdapter(annulus_data_adapter);
+                    recView_dsData.setAdapter(drillStringInputAdapter);
                     ds_popupWindow.dismiss();
                 } catch (NumberFormatException nfe) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -309,7 +280,7 @@ public class DSDataDisplay extends Fragment {
                     annulusDataList.get(i).setString_id(stringID);
                     annulusDataList.get(i).setString_od(stringOD);
                     annulusDataList.get(i).setString_length(stringLength);
-                    ds_listView.setAdapter(annulus_data_adapter);
+                    recView_dsData.setAdapter(drillStringInputAdapter);
                     ds_popupWindow.dismiss();
                 } catch (NumberFormatException nfe) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -353,7 +324,49 @@ public class DSDataDisplay extends Fragment {
             annulusDataList.get(i).setDiameter_units(diameter_units);
             annulusDataList.get(i).setLength_units(length_units);
         }
-        ds_listView.setAdapter(annulus_data_adapter);
+        recView_dsData.setAdapter(drillStringInputAdapter);
 
+    }
+
+    @Override
+    public void onRecViewClickListener(View v, final int pos) {
+        TextView nameTV = v.findViewById(R.id.ds_part_name);
+        TextView idTV = v.findViewById(R.id.drill_string_tv_input_ds_id);
+        TextView odTV = v.findViewById(R.id.drill_string_tv_input_ds_od);
+        TextView lengthTV = v.findViewById(R.id.drill_string_tv_input_ds_length);
+        final String name = nameTV.getText().toString();
+        String idString = idTV.getText().toString();
+        String odString = odTV.getText().toString();
+        String lengthString = lengthTV.getText().toString();
+        final String[] oldDataString = {idString, odString, lengthString};
+
+        Log.d("DS_DATA_DISPLAY", "Start Dialog");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("What would you like to do?");
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d("NAME: ", name + " pos " + String.valueOf(pos));
+                UpdateData_PopUp(pos, name, oldDataString);
+            }
+        });
+        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                annulusDataList.remove(pos);
+                annulus_dataBase.deleteFromDB(name);
+                recView_dsData.setAdapter(drillStringInputAdapter);
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

@@ -102,22 +102,18 @@ public class SandV_Free extends AppCompatActivity {
         deleteBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(viewPager.getCurrentItem() == 0) {
+                if (viewPager.getCurrentItem() == 0) {
                     Fragment currentFragment = getFragmentAtPos(viewPager, viewPager.getCurrentItem());
                     HoleDisplayData holeDisplayData = (HoleDisplayData) currentFragment;
-                    for(int i = 0; i < holeDisplayData.itemsData.size(); i++) {
-                        holeDisplayData.listAdapter.remove(holeDisplayData.itemsData.get(i));
-                        holeDisplayData.dataListView.setAdapter(holeDisplayData.listAdapter);
-                    }
+                    holeDisplayData.itemsData.clear();
+                    holeDisplayData.recViewData.setAdapter(holeDisplayData.holeDataInputAdapter);
                     holeData_dataBase.deleteDB();
                     Toast.makeText(getBaseContext(), "Hole Data Cleared", Toast.LENGTH_SHORT).show();
                 } else if (viewPager.getCurrentItem() == 1) {
                     Fragment currentFragment = getFragmentAtPos(viewPager, viewPager.getCurrentItem());
                     DSDataDisplay dsDataDisplay = (DSDataDisplay) currentFragment;
-                    for(int i = 0; i < dsDataDisplay.annulusDataList.size();i++) {
-                        dsDataDisplay.annulus_data_adapter.remove(dsDataDisplay.annulusDataList.get(i));
-                        dsDataDisplay.ds_listView.setAdapter(dsDataDisplay.annulus_data_adapter);
-                    }
+                    dsDataDisplay.annulusDataList.clear();
+                    dsDataDisplay.recView_dsData.setAdapter(dsDataDisplay.drillStringInputAdapter);
                     annulus_dataBase.deleteDB();
                     Toast.makeText(getBaseContext(), "Drill String Data Cleared", Toast.LENGTH_SHORT).show();
                 }
@@ -130,8 +126,8 @@ public class SandV_Free extends AppCompatActivity {
         return getSupportFragmentManager().findFragmentByTag(tag_name);
     }
 
-    private String makeFragmentTagName (int viewId, int index) {
-        return "android:switcher:" + viewId+":"+index;
+    private String makeFragmentTagName(int viewId, int index) {
+        return "android:switcher:" + viewId + ":" + index;
     }
 
     @Override
