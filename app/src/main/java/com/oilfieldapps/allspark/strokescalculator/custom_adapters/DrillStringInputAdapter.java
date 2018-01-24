@@ -1,6 +1,7 @@
 package com.oilfieldapps.allspark.strokescalculator.custom_adapters;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ public class DrillStringInputAdapter extends RecyclerView.Adapter<DrillStringInp
     private List<Annulus_Data> annulus_data;
     private static OnClickRecyclerViewListener recyclerViewListener;
 
-    public DrillStringInputAdapter(List<Annulus_Data> annulus_data, OnClickRecyclerViewListener onClickRecyclerViewListener) {
+    public DrillStringInputAdapter(List<Annulus_Data> annulus_data, @Nullable OnClickRecyclerViewListener onClickRecyclerViewListener) {
         this.annulus_data = annulus_data;
         recyclerViewListener = onClickRecyclerViewListener;
     }

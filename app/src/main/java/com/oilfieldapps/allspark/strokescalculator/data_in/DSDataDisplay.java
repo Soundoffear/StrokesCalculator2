@@ -81,22 +81,12 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
                         invertedAnnulusData.add(annulusDataList.get(i));
                     }
                     annulusDataList = invertedAnnulusData;
-                    drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList, new OnClickRecyclerViewListener() {
-                        @Override
-                        public void onRecViewClickListener(View v, int pos) {
-
-                        }
-                    });
+                    drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList,null);
                     recView_dsData.setAdapter(drillStringInputAdapter);
                 } else {
                     annulusDataList = new ArrayList<>();
                     annulusDataList = annulus_dataBase.getAllItems();
-                    drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList, new OnClickRecyclerViewListener() {
-                        @Override
-                        public void onRecViewClickListener(View v, int pos) {
-
-                        }
-                    });
+                    drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList, null);
                     recView_dsData.setAdapter(drillStringInputAdapter);
                 }
             }
