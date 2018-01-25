@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:gravity="center_horizontal"
-    tools:context="com.oilfieldapps.allspark.strokescalculator.MainActivity">
+    tools:context="com.oilfieldapps.allspark.snvcalculator.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_activity_toolbar"

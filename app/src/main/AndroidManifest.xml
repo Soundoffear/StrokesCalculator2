@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.oilfieldapps.allspark.strokescalculator">
+    package="com.oilfieldapps.allspark.snvcalculator">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.oilfieldapps.allspark.snvcalculator.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,46 +17,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PumpOutput"
-            android:parentActivityName=".MainActivity">
+            android:name="com.oilfieldapps.allspark.snvcalculator.PumpOutput"
+            android:parentActivityName="com.oilfieldapps.allspark.snvcalculator.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.oilfieldapps.allspark.snvcalculator.MainActivity" />
         </activity>
-        <activity android:name=".menus.PumpOutputMenu" />
+        <activity android:name="com.oilfieldapps.allspark.snvcalculator.menus.PumpOutputMenu" />
         <activity
-            android:name=".SandV_Free"
-            android:parentActivityName=".MainActivity">
+            android:name="com.oilfieldapps.allspark.snvcalculator.SandV_Free"
+            android:parentActivityName="com.oilfieldapps.allspark.snvcalculator.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.oilfieldapps.allspark.snvcalculator.MainActivity" />
         </activity>
         <activity
-            android:name=".SandV_Free_results"
-            android:parentActivityName=".SandV_Free">
+            android:name="com.oilfieldapps.allspark.snvcalculator.SandV_Free_results"
+            android:parentActivityName="com.oilfieldapps.allspark.snvcalculator.SandV_Free">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SandV_Free" />
+                android:value="com.oilfieldapps.allspark.snvcalculator.SandV_Free" />
         </activity>
-        <activity android:name=".menus.SNV_Menu" />
+        <activity android:name="com.oilfieldapps.allspark.snvcalculator.menus.SNV_Menu" />
         <activity
-            android:name=".AnnularVelocity"
-            android:parentActivityName=".MainActivity">
+            android:name="com.oilfieldapps.allspark.snvcalculator.AnnularVelocity"
+            android:parentActivityName="com.oilfieldapps.allspark.snvcalculator.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.oilfieldapps.allspark.snvcalculator.MainActivity" />
         </activity>
-        <activity android:name=".menus.AV_Menu" />
+        <activity android:name="com.oilfieldapps.allspark.snvcalculator.menus.AV_Menu" />
         <activity
-            android:name=".Tanks_Volume"
-            android:parentActivityName=".MainActivity"
+            android:name="com.oilfieldapps.allspark.snvcalculator.Tanks_Volume"
+            android:parentActivityName="com.oilfieldapps.allspark.snvcalculator.MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.oilfieldapps.allspark.snvcalculator.MainActivity" />
         </activity>
-        <activity android:name=".menus.TankVol_Menu" />
-        <activity android:name=".SNV_HowToActivity"></activity>
+        <activity android:name="com.oilfieldapps.allspark.snvcalculator.menus.TankVol_Menu" />
+        <activity android:name="com.oilfieldapps.allspark.snvcalculator.SNV_HowToActivity"></activity>
     </application>
 
 </manifest>
