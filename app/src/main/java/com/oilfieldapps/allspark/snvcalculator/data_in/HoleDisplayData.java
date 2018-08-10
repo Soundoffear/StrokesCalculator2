@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,7 +86,7 @@ public class HoleDisplayData extends Fragment implements OnClickRecyclerViewList
         View popUpView = inflater.inflate(R.layout.popup_window_layout_hole, null);
 
         tPopUpWindow = new PopupWindow(popUpView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if(Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             tPopUpWindow.setElevation(10);
         }
 
@@ -126,34 +127,40 @@ public class HoleDisplayData extends Fragment implements OnClickRecyclerViewList
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String string_inputName = inputName.getText().toString();
-                    String string_inputID = inputID.getText().toString();
-                    String string_inputOD = inputOD.getText().toString();
-                    String string_inputEndMD = input_EndMD.getText().toString();
-                    String string_inputTopMD = input_TopMD.getText().toString();
-
-                    holeData = new HoleData(string_inputName, string_inputID, string_inputOD, string_inputEndMD, string_inputTopMD, diameter_chosen_units, length_chosen_units);
-                    holeData_dataBase.addItemToHoleDesign(holeData);
-                    itemsData.add(holeData);
-                    recViewData.setAdapter(holeDataInputAdapter);
-                    tPopUpWindow.dismiss();
-                } catch (NumberFormatException nfe) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Warning");
-                    builder.setMessage("Please check if all the field contains numbers");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
+                if (checkIfValueIn(inputName) && checkIfValueIn(inputID) && checkIfValueIn(inputOD) && checkIfValueIn(input_EndMD) && checkIfValueIn(input_TopMD)) {
+                    try {
+                        String string_inputName = inputName.getText().toString();
+                        String string_inputID = inputID.getText().toString();
+                        String string_inputOD = inputOD.getText().toString();
+                        String string_inputEndMD = input_EndMD.getText().toString();
+                        String string_inputTopMD = input_TopMD.getText().toString();
+                        if (TextUtils.isEmpty(string_inputTopMD)) {
+                            string_inputTopMD = "0";
                         }
-                    });
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
+
+                        holeData = new HoleData(string_inputName, string_inputID, string_inputOD, string_inputEndMD, string_inputTopMD, diameter_chosen_units, length_chosen_units);
+                        holeData_dataBase.addItemToHoleDesign(holeData);
+                        itemsData.add(holeData);
+                        recViewData.setAdapter(holeDataInputAdapter);
+                        tPopUpWindow.dismiss();
+                    } catch (NumberFormatException nfe) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Warning");
+                        builder.setMessage("Please check if all the field contains numbers");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
                 }
             }
         });
     }
+
     private void UpdateData(final String name, final int i, String[] oldData) {
         LayoutInflater inflater = (LayoutInflater) tContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
@@ -161,7 +168,7 @@ public class HoleDisplayData extends Fragment implements OnClickRecyclerViewList
 
         tPopUpWindow = new PopupWindow(popUpView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        if(Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             tPopUpWindow.setElevation(10);
         }
 
@@ -207,37 +214,52 @@ public class HoleDisplayData extends Fragment implements OnClickRecyclerViewList
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String string_inputName = inputName.getText().toString();
-                    String string_inputID = inputID.getText().toString();
-                    String string_inputOD = inputOD.getText().toString();
-                    String string_inputEndMD = input_EndMD.getText().toString();
-                    String string_inputTopMD = input_TopMD.getText().toString();
-
-                    holeData = new HoleData(string_inputName, string_inputID, string_inputOD, string_inputEndMD, string_inputTopMD, diameter_chosen_units, length_chosen_units);
-                    holeData_dataBase.updateDatabase(holeData, name);
-                    itemsData.get(i).setName(string_inputName);
-                    itemsData.get(i).setInput_id(string_inputID);
-                    itemsData.get(i).setInput_od(string_inputOD);
-                    itemsData.get(i).setInput_end_md(string_inputEndMD);
-                    itemsData.get(i).setInput_top_md(string_inputTopMD);
-                    recViewData.setAdapter(holeDataInputAdapter);
-                    tPopUpWindow.dismiss();
-                } catch (NumberFormatException nfe) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Warning");
-                    builder.setMessage("Please check if all the field contains numbers");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
+                if (checkIfValueIn(inputName) && checkIfValueIn(inputID) && checkIfValueIn(inputOD) && checkIfValueIn(input_EndMD) && checkIfValueIn(input_TopMD)) {
+                    try {
+                        String string_inputName = inputName.getText().toString();
+                        String string_inputID = inputID.getText().toString();
+                        String string_inputOD = inputOD.getText().toString();
+                        String string_inputEndMD = input_EndMD.getText().toString();
+                        String string_inputTopMD = input_TopMD.getText().toString();
+                        if (TextUtils.isEmpty(string_inputTopMD)) {
+                            string_inputTopMD = "0";
                         }
-                    });
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
+
+                        holeData = new HoleData(string_inputName, string_inputID, string_inputOD, string_inputEndMD, string_inputTopMD, diameter_chosen_units, length_chosen_units);
+                        holeData_dataBase.updateDatabase(holeData, name);
+                        itemsData.get(i).setName(string_inputName);
+                        itemsData.get(i).setInput_id(string_inputID);
+                        itemsData.get(i).setInput_od(string_inputOD);
+                        itemsData.get(i).setInput_end_md(string_inputEndMD);
+                        itemsData.get(i).setInput_top_md(string_inputTopMD);
+                        recViewData.setAdapter(holeDataInputAdapter);
+                        tPopUpWindow.dismiss();
+                    } catch (NumberFormatException nfe) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Warning");
+                        builder.setMessage("Please check if all the field contains numbers");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
                 }
             }
         });
+    }
+
+    private boolean checkIfValueIn(EditText dataInET) {
+        if (TextUtils.isEmpty(dataInET.getText().toString())) {
+            dataInET.setError("Please Enter Value");
+            return false;
+        } else {
+            dataInET.setError(null);
+        }
+        return true;
     }
 
     @Override
@@ -249,7 +271,7 @@ public class HoleDisplayData extends Fragment implements OnClickRecyclerViewList
         length_chosen_units = unitsPreferences.getString("SNV_LENGTH_UNITS", getResources().getString(R.string.feet));
 
         holeData_dataBase.updateUnits(diameter_chosen_units, length_chosen_units);
-        for(int i =0 ; i < itemsData.size(); i++) {
+        for (int i = 0; i < itemsData.size(); i++) {
             itemsData.get(i).setInput_diameter_unit(diameter_chosen_units);
             itemsData.get(i).setInput_length_unit(length_chosen_units);
         }

@@ -3,6 +3,7 @@ package com.oilfieldapps.allspark.snvcalculator.calculators;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.oilfieldapps.allspark.snvcalculator.R;
@@ -324,7 +325,11 @@ public class SNV_Calculator {
         String diameter_units = data.getInput_diameter_unit();
         double endMD = Double.parseDouble(data.getInput_end_md());
         endMD = Converter.lengthConverter(length_units, context.getResources().getString(R.string.feet), endMD);
-        double topMD = Double.parseDouble(data.getInput_top_md());
+        String topMDs = data.getInput_top_md();
+        if(TextUtils.isEmpty(topMDs)) {
+            topMDs = "0";
+        }
+        double topMD = Double.parseDouble(topMDs);
         topMD = Converter.lengthConverter(length_units, context.getResources().getString(R.string.feet), topMD);
         double id = Double.parseDouble(data.getInput_id());
         id = Converter.diameterConverter(diameter_units, context.getResources().getString(R.string.in), id);

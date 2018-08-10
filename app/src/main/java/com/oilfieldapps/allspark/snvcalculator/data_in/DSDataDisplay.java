@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -81,7 +82,7 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
                         invertedAnnulusData.add(annulusDataList.get(i));
                     }
                     annulusDataList = invertedAnnulusData;
-                    drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList,null);
+                    drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList, null);
                     recView_dsData.setAdapter(drillStringInputAdapter);
                 } else {
                     annulusDataList = new ArrayList<>();
@@ -179,38 +180,49 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
         addBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String name = ds_name.getText().toString();
-                    String id = ds_id.getText().toString();
-                    String od = ds_od.getText().toString();
-                    String length = ds_length.getText().toString();
-                    Log.d("TEST UNITS", diameter_chosen_units + " " + length_chosen_units);
-
-                    annulusData = new Annulus_Data(name, id, od, length, diameter_chosen_units, length_chosen_units);
-                    annulus_dataBase.addItemIntoDS_DB(annulusData);
-                    if (!fromBit_CheckBox.isChecked()) {
-                        annulusDataList.add(annulusData);
-                    } else {
-                        annulusDataList.add(0, annulusData);
-                    }
-                    recView_dsData.setAdapter(drillStringInputAdapter);
-                    ds_popupWindow.dismiss();
-                } catch (NumberFormatException nfe) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Warning");
-                    builder.setMessage("Please check if all the field contains numbers");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
+                if (checkIfValueIn(ds_name) && checkIfValueIn(ds_id) && checkIfValueIn(ds_od) && checkIfValueIn(ds_length)) {
+                    try {
+                        String name = ds_name.getText().toString();
+                        String id = ds_id.getText().toString();
+                        String od = ds_od.getText().toString();
+                        String length = ds_length.getText().toString();
+                        annulusData = new Annulus_Data(name, id, od, length, diameter_chosen_units, length_chosen_units);
+                        annulus_dataBase.addItemIntoDS_DB(annulusData);
+                        if (!fromBit_CheckBox.isChecked()) {
+                            annulusDataList.add(annulusData);
+                        } else {
+                            annulusDataList.add(0, annulusData);
                         }
-                    });
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
+                        drillStringInputAdapter = new DrillStringInputAdapter(annulusDataList, DSDataDisplay.this);
+                        recView_dsData.setAdapter(drillStringInputAdapter);
+                        ds_popupWindow.dismiss();
+                    } catch (NumberFormatException nfe) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Warning");
+                        builder.setMessage("Please check if all the field contains numbers");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
                 }
             }
         });
 
+    }
+
+    private boolean checkIfValueIn(EditText dataInput) {
+        if (TextUtils.isEmpty(dataInput.getText().toString())) {
+            dataInput.setError("Please enter value");
+            return false;
+        } else {
+            dataInput.setError(null);
+        }
+        return true;
     }
 
     public void UpdateData_PopUp(final int i, final String nameString, String[] oldData) {
@@ -258,32 +270,34 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
         updateBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    String stringName = name.getText().toString();
-                    String stringID = id.getText().toString();
-                    String stringOD = od.getText().toString();
-                    String stringLength = length.getText().toString();
+                if (checkIfValueIn(name) && checkIfValueIn(id) && checkIfValueIn(od) && checkIfValueIn(length)) {
+                    try {
+                        String stringName = name.getText().toString();
+                        String stringID = id.getText().toString();
+                        String stringOD = od.getText().toString();
+                        String stringLength = length.getText().toString();
 
-                    annulusData = new Annulus_Data(stringName, stringID, stringOD, stringLength, diameter_chosen_units, length_chosen_units);
-                    annulus_dataBase.updateDB(annulusData, nameString);
-                    annulusDataList.get(i).setString_name(stringName);
-                    annulusDataList.get(i).setString_id(stringID);
-                    annulusDataList.get(i).setString_od(stringOD);
-                    annulusDataList.get(i).setString_length(stringLength);
-                    recView_dsData.setAdapter(drillStringInputAdapter);
-                    ds_popupWindow.dismiss();
-                } catch (NumberFormatException nfe) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("Warning");
-                    builder.setMessage("Please check if all the field contains numbers");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
+                        annulusData = new Annulus_Data(stringName, stringID, stringOD, stringLength, diameter_chosen_units, length_chosen_units);
+                        annulus_dataBase.updateDB(annulusData, nameString);
+                        annulusDataList.get(i).setString_name(stringName);
+                        annulusDataList.get(i).setString_id(stringID);
+                        annulusDataList.get(i).setString_od(stringOD);
+                        annulusDataList.get(i).setString_length(stringLength);
+                        recView_dsData.setAdapter(drillStringInputAdapter);
+                        ds_popupWindow.dismiss();
+                    } catch (NumberFormatException nfe) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Warning");
+                        builder.setMessage("Please check if all the field contains numbers");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
+                    }
                 }
             }
         });

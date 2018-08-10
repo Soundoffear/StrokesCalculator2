@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -78,24 +79,24 @@ public class SandV_Free extends AppCompatActivity {
         calculateBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(checkForPumpOutput(pump_output_input)) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("PUMP_OUTPUT_SAVE", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    String pump_input_string = pump_output_input.getText().toString();
+                    editor.putString("PUMP_STRING", pump_input_string);
+                    editor.apply();
 
-                SharedPreferences sharedPreferences = getSharedPreferences("PUMP_OUTPUT_SAVE", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                String pump_input_string = pump_output_input.getText().toString();
-                editor.putString("PUMP_STRING", pump_input_string);
-                editor.apply();
+                    double pump_output = Double.parseDouble(pump_output_input.getText().toString());
 
-                double pump_output = Double.parseDouble(pump_output_input.getText().toString());
+                    SNV_Calculator.calculateAnnularData(SandV_Free.this, pump_output);
+                    SNV_Calculator.calculateDrillStringData(SandV_Free.this, pump_output);
+                    SNV_Calculator.calculateEmptyHoleVolume(SandV_Free.this);
 
-                SNV_Calculator.calculateAnnularData(SandV_Free.this, pump_output);
-                SNV_Calculator.calculateDrillStringData(SandV_Free.this, pump_output);
-                SNV_Calculator.calculateEmptyHoleVolume(SandV_Free.this);
+                    Intent data_to_results = new Intent(SandV_Free.this, SandV_Free_results.class);
+                    data_to_results.putExtra("STRING_PUMP_OUTPUT", pump_input_string);
 
-                Intent data_to_results = new Intent(SandV_Free.this, SandV_Free_results.class);
-                data_to_results.putExtra("STRING_PUMP_OUTPUT", pump_input_string);
-
-                startActivity(data_to_results);
-
+                    startActivity(data_to_results);
+                }
             }
         });
 
@@ -119,6 +120,16 @@ public class SandV_Free extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean checkForPumpOutput(EditText pump_output) {
+        if(TextUtils.isEmpty(pump_output.getText().toString())) {
+            pump_output.setError("Please enter value");
+            return false;
+        } else {
+            pump_output.setError(null);
+        }
+        return true;
     }
 
     public Fragment getFragmentAtPos(ViewPager container, int position) {

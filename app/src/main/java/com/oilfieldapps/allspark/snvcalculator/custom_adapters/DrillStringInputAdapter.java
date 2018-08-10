@@ -1,9 +1,9 @@
 package com.oilfieldapps.allspark.snvcalculator.custom_adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +25,9 @@ public class DrillStringInputAdapter extends RecyclerView.Adapter<DrillStringInp
         recyclerViewListener = onClickRecyclerViewListener;
     }
 
+    @NonNull
     @Override
-    public DrillStringInputViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DrillStringInputViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         int layoutR = R.layout.drill_string_list_view_data_display;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -35,7 +36,7 @@ public class DrillStringInputAdapter extends RecyclerView.Adapter<DrillStringInp
     }
 
     @Override
-    public void onBindViewHolder(DrillStringInputViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DrillStringInputViewHolder holder, int position) {
         holder.tv_partName.setText(annulus_data.get(position).getString_name());
         holder.tv_ds_id.setText(annulus_data.get(position).getString_id());
         holder.tv_ds_od.setText(annulus_data.get(position).getString_od());
@@ -80,7 +81,6 @@ public class DrillStringInputAdapter extends RecyclerView.Adapter<DrillStringInp
         @Override
         public void onClick(View v) {
             recyclerViewListener.onRecViewClickListener(v, this.getLayoutPosition());
-            Log.d("DS_View_holder", "Start Dialog");
         }
     }
 

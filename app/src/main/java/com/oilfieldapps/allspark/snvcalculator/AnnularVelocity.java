@@ -102,7 +102,7 @@ public class AnnularVelocity extends AppCompatActivity {
 
                     tv_av_result.setText(av_string);
                 } catch (NumberFormatException nfe) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AnnularVelocity.this);
                     builder.setTitle("Warning");
                     builder.setMessage("Please check if all the field contains numbers");
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -140,7 +140,7 @@ public class AnnularVelocity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.av_menu) {
+        if (item.getItemId() == R.id.av_menu) {
             Intent prefsIntent = new Intent(AnnularVelocity.this, AV_Menu.class);
             startActivity(prefsIntent);
         }
