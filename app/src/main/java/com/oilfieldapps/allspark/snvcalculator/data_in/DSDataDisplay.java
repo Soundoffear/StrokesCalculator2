@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -51,13 +52,17 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
     private String diameter_chosen_units;
     private String length_chosen_units;
 
+    private Context context;
+
     public DSDataDisplay() {
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ds_data, container, false);
+
+        context = getContext();
 
         recView_dsData = view.findViewById(R.id.recView_dsData);
         recView_dsData.setHasFixedSize(true);
@@ -135,7 +140,7 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
 
         //TODO Add option 'calculate remaining Drill String length' to force calculation to bottom
 
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert inflater != null;
         View popUpView = inflater.inflate(R.layout.popup_window_drill_string_add_new, null);
 
@@ -197,7 +202,7 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
                         recView_dsData.setAdapter(drillStringInputAdapter);
                         ds_popupWindow.dismiss();
                     } catch (NumberFormatException nfe) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("Warning");
                         builder.setMessage("Please check if all the field contains numbers");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -227,7 +232,7 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
 
     public void UpdateData_PopUp(final int i, final String nameString, String[] oldData) {
 
-        LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         assert layoutInflater != null;
         View updatePopUp = layoutInflater.inflate(R.layout.popup_window_drill_string_update_existing, null);
 
@@ -286,7 +291,7 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
                         recView_dsData.setAdapter(drillStringInputAdapter);
                         ds_popupWindow.dismiss();
                     } catch (NumberFormatException nfe) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("Warning");
                         builder.setMessage("Please check if all the field contains numbers");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -346,7 +351,7 @@ public class DSDataDisplay extends Fragment implements OnClickRecyclerViewListen
 
         Log.d("DS_DATA_DISPLAY", "Start Dialog");
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage("What would you like to do?");
         builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -51,7 +52,7 @@ public class HoleDisplayData extends Fragment implements OnClickRecyclerViewList
     private String length_chosen_units;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.hole_data, container, false);
 
@@ -144,7 +145,7 @@ public class HoleDisplayData extends Fragment implements OnClickRecyclerViewList
                         recViewData.setAdapter(holeDataInputAdapter);
                         tPopUpWindow.dismiss();
                     } catch (NumberFormatException nfe) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(tContext);
                         builder.setTitle("Warning");
                         builder.setMessage("Please check if all the field contains numbers");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -235,7 +236,7 @@ public class HoleDisplayData extends Fragment implements OnClickRecyclerViewList
                         recViewData.setAdapter(holeDataInputAdapter);
                         tPopUpWindow.dismiss();
                     } catch (NumberFormatException nfe) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(tContext);
                         builder.setTitle("Warning");
                         builder.setMessage("Please check if all the field contains numbers");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -292,7 +293,7 @@ public class HoleDisplayData extends Fragment implements OnClickRecyclerViewList
         String endMDString = endMD.getText().toString();
         final String[] oldDataStrings = {idString, odString, topMDString, endMDString};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(tContext);
         builder.setMessage("What would you like to do?");
         builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
